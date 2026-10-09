@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide circuit.js · Laboratoire virtuel</title>
+<meta name="description" content="Utiliser, charger et étendre la librairie de circuits du simulateur.">
+<meta property="og:image" content="assets/images/hero-bulb.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="css/guide.css">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="simulateur.html">Simulateur</a>
+    <a href="modules.html">Modules</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="guide.html" aria-current="page">Guide</a>
+  </nav>
+</header>
+
+<main class="guide-shell">
+
+  <aside class="guide-nav">
+    <p class="eyebrow">Sommaire</p>
+    <nav>
+      <a href="#intro">Présentation</a>
+      <a href="#role">Rôle du fichier</a>
+      <a href="#structure">Structure générale</a>
+      <a href="#circuit">Un circuit</a>
+      <a href="#composants">Les composants</a>
+      <a href="#connexions">Les connexions</a>
+      <a href="#ouvrir">Ouvrir la librairie</a>
+      <a href="#charger">Charger un circuit</a>
+      <a href="#exporter">Exporter son circuit</a>
+      <a href="#ajouter">Ajouter un circuit</a>
+      <a href="#erreurs">Erreurs fréquentes</a>
+      <a href="#integration">Intégration au simulateur</a>
+      <a href="#raccourcis">Raccourcis</a>
+    </nav>
+  </aside>
+
+  <article class="guide-body">
+
+    <section id="intro">
+      <h1 class="display display-lg">Guide<br>circuit.js</h1>
+      <p class="lead">
+        <code>circuit.js</code> est le fichier qui contient la librairie de
+        circuits prédéfinis du simulateur. C'est lui qui permet de partir
+        d'un exemple fonctionnel au lieu d'une plaque vide.
+      </p>
+      <p>
+        Ce guide explique ce que contient le fichier, comment l'utiliser,
+        comment y ajouter un circuit, et comment éviter les erreurs les plus
+        courantes.
+      </p>
+    </section>
+
+    <section id="role">
+      <h2 class="display display-md">Rôle du fichier</h2>
+      <p>
+        Le simulateur charge <code>circuit.js</code> au démarrage. Le fichier
+        expose une constante globale, généralement nommée <code>CIRCUITS</code>,
+        qui contient la liste des circuits disponibles dans la librairie.
+      </p>
+      <p>
+        Chaque fois que l'utilisateur clique sur « Charger un exemple » ou
+        « Bibliothèque », le simulateur lit cette liste, construit la fenêtre,
+        et attend qu'un circuit soit choisi. Charger un circuit revient à le
+        reconstruire sur la plaque, composant par composant, connexion par
+        connexion.
+      </p>
+      <p>
+        Le fichier est chargé avant <code>simulateur.js</code>. Il ne contient
+        aucune logique, seulement des données. Aucune fonction, aucun calcul.
+        C'est un catalogue.
+      </p>
+    </section>
+
+    <section id="structure">
+      <h2 class="display display-md">Structure générale</h2>
+      <p>
+        Le fichier contient un tableau d'objets. Chaque objet représente un
+        circuit. La structure ressemble à ceci :
+      </p>
+
+      <pre class="guide-code">const CIRCUITS = [
+  {
+    id: 'serie',
+    nom: 'Circuit série',
+    description: 'Une pile et deux résistances en série.',
+    categorie: 'Bases',
+    composants: [
+      { type: 'battery', x: 100, y: 200, value: 12 },
+      { type: 'resistor', x: 300, y: 200, value: 100 },
+      { type: 'resistor', x: 500, y: 200, value: 200 }
+    ],
+    connexions: [
+      { de: 0, borne: 0, vers: 1, borneCible: 0 },
+      { de: 1, borne: 1, vers: 2, borneCible: 0 },
+      { de: 2, borne: 1, vers: 0, borneCible: 1 }
+    ]
+  },
+  /* autres circuits... */
+];</pre>
+
+      <p>
+        Trois sections composent chaque circuit. Les informations générales
+        (identifiant, nom, description, catégorie), la liste des composants,
+        et la liste des connexions entre leurs bornes.
+      </p>
+    </section>
+
+    <section id="circuit">
+      <h2 class="display display-md">Un circuit</h2>
+
+      <p>Chaque circuit contient six champs :</p>
+
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>Champ</th>
+            <th>Rôle</th>
+            <th>Exemple</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>id</code></td>
+            <td>Identifiant unique, en minuscules, sans espaces.</td>
+            <td><code>serie</code></td>
+          </tr>
+          <tr>
+            <td><code>nom</code></td>
+            <td>Titre affiché dans la fenêtre de la librairie.</td>
+            <td><code>Circuit série</code></td>
+          </tr>
+          <tr>
+            <td><code>description</code></td>
+            <td>Phrase courte qui apparaît sous le nom.</td>
+            <td><code>Une pile et deux résistances en série.</code></td>
+          </tr>
+          <tr>
+            <td><code>categorie</code></td>
+            <td>Groupe auquel le circuit appartient. Sert au rangement.</td>
+            <td><code>Bases</code></td>
+          </tr>
+          <tr>
+            <td><code>composants</code></td>
+            <td>Tableau des composants qui forment le circuit.</td>
+            <td>Voir section suivante.</td>
+          </tr>
+          <tr>
+            <td><code>connexions</code></td>
+            <td>Tableau des connexions entre les bornes.</td>
+            <td>Voir section après.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        L'identifiant doit être unique dans tout le fichier. Deux circuits ne
+        peuvent pas partager le même. Si cela arrive, seul le premier sera
+        chargé.
+      </p>
+    </section>
+
+    <section id="composants">
+      <h2 class="display display-md">Les composants</h2>
+
+      <p>
+        Chaque composant est décrit par quatre champs :
+      </p>
+
+      <pre class="guide-code">{ type: 'battery', x: 100, y: 200, value: 12 }</pre>
+
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>Champ</th>
+            <th>Rôle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>type</code></td>
+            <td>Nature du composant. Doit correspondre à un type existant.</td>
+          </tr>
+          <tr>
+            <td><code>x</code></td>
+            <td>Position horizontale, en pixels depuis le bord gauche de la plaque.</td>
+          </tr>
+          <tr>
+            <td><code>y</code></td>
+            <td>Position verticale, en pixels depuis le bord supérieur.</td>
+          </tr>
+          <tr>
+            <td><code>value</code></td>
+            <td>Valeur numérique. Tension en volts pour une pile, résistance en ohms pour une résistance. Peut être omis pour les composants sans valeur.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="guide-h3">Types de composants disponibles</h3>
+
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Nom</th>
+            <th>Valeur</th>
+            <th>Unité</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>battery</code></td><td>Pile</td><td>Tension</td><td>V</td></tr>
+          <tr><td><code>resistor</code></td><td>Résistance</td><td>Résistance</td><td>Ω</td></tr>
+          <tr><td><code>lamp</code></td><td>Lampe</td><td>Résistance interne</td><td>Ω</td></tr>
+          <tr><td><code>switch</code></td><td>Interrupteur</td><td>0 ouvert, 1 fermé</td><td>—</td></tr>
+          <tr><td><code>led</code></td><td>LED</td><td>Tension de seuil</td><td>V</td></tr>
+          <tr><td><code>fuse</code></td><td>Fusible</td><td>Courant maximal</td><td>A</td></tr>
+          <tr><td><code>motor</code></td><td>Moteur</td><td>Résistance interne</td><td>Ω</td></tr>
+          <tr><td><code>ammeter</code></td><td>Ampèremètre</td><td>Aucune</td><td>—</td></tr>
+          <tr><td><code>voltmeter</code></td><td>Voltmètre</td><td>Aucune</td><td>—</td></tr>
+          <tr><td><code>wire</code></td><td>Fil</td><td>Aucune</td><td>—</td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        Si un type n'est pas reconnu, le simulateur crée une résistance par
+        défaut. Le circuit se charge quand même, mais avec un composant
+        incorrect.
+      </p>
+
+      <div class="guide-callout">
+        <p>
+          <strong>Conseil :</strong> les positions sont en pixels sur la
+          plaque. Un pas de 80 pixels entre deux composants alignés donne une
+          disposition lisible. Ne place pas deux composants au même endroit,
+          ils se superposeraient.
+        </p>
+      </div>
+    </section>
+
+    <section id="connexions">
+      <h2 class="display display-md">Les connexions</h2>
+
+      <p>
+        Chaque connexion relie deux bornes. Elle est décrite par quatre
+        champs :
+      </p>
+
+      <pre class="guide-code">{ de: 0, borne: 0, vers: 1, borneCible: 0 }</pre>
+
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>Champ</th>
+            <th>Rôle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>de</code></td>
+            <td>Indice du premier composant dans le tableau <code>composants</code>. Le premier a l'indice 0, le deuxième l'indice 1, et ainsi de suite.</td>
+          </tr>
+          <tr>
+            <td><code>borne</code></td>
+            <td>Numéro de la borne du premier composant. 0 pour la borne gauche, 1 pour la borne droite.</td>
+          </tr>
+          <tr>
+            <td><code>vers</code></td>
+            <td>Indice du deuxième composant.</td>
+          </tr>
+          <tr>
+            <td><code>borneCible</code></td>
+            <td>Numéro de la borne du deuxième composant.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="guide-h3">Exemple concret</h3>
+
+      <p>
+        Reprenons le circuit série. Trois composants : une pile (indice 0),
+        une résistance (indice 1), une résistance (indice 2).
+      </p>
+
+      <pre class="guide-code">connexions: [
+  { de: 0, borne: 0, vers: 1, borneCible: 0 },  // pile+ vers R1 gauche
+  { de: 1, borne: 1, vers: 2, borneCible: 0 },  // R1 droite vers R2 gauche
+  { de: 2, borne: 1, vers: 0, borneCible: 1 }   // R2 droite vers pile−
+]</pre>
+
+      <p>
+        Ces trois connexions forment une boucle fermée. Le courant peut
+        circuler de la pile vers les deux résistances puis revenir à la pile.
+      </p>
+
+      <div class="guide-callout">
+        <p>
+          <strong>Attention :</strong> chaque borne ne peut recevoir qu'une
+          seule connexion. Si tu écris deux lignes qui utilisent la même
+          borne du même composant, la deuxième sera ignorée.
+        </p>
+      </div>
+    </section>
+
+    <section id="ouvrir">
+      <h2 class="display display-md">Ouvrir la librairie</h2>
+
+      <p>
+        Dans le simulateur, deux façons d'accéder à la librairie.
+      </p>
+
+      <ol class="guide-steps">
+        <li>
+          Clique sur <strong>Bibliothèque</strong> dans la barre d'outils du
+          haut. Une fenêtre apparaît avec la liste des circuits rangés par
+          catégorie.
+        </li>
+        <li>
+          Ou depuis une fiche de TP, clique sur <strong>Charger l'exemple</strong>.
+          Le simulateur s'ouvre avec le circuit déjà en place.
+        </li>
+      </ol>
+
+      <p>
+        La fenêtre se ferme avec la croix, en cliquant en dehors, ou avec
+        <kbd>Échap</kbd>.
+      </p>
+    </section>
+
+    <section id="charger">
+      <h2 class="display display-md">Charger un circuit</h2>
+
+      <p>
+        Charger un circuit remplace le contenu actuel de la plaque. Si tu as
+        construit quelque chose que tu veux garder, sauvegarde-le avant.
+      </p>
+
+      <ol class="guide-steps">
+        <li>Ouvre la librairie.</li>
+        <li>Repère le circuit dans la liste.</li>
+        <li>Clique sur son nom.</li>
+        <li>La fenêtre se ferme, le circuit apparaît sur la plaque.</li>
+        <li>Clique sur <strong>Simuler</strong> pour voir le résultat.</li>
+      </ol>
+
+      <p>
+        Les composants apparaissent à leurs positions prédéfinies. Les bornes
+        déjà connectées sont vertes.
+      </p>
+    </section>
+
+    <section id="exporter">
+      <h2 class="display display-md">Exporter son propre circuit</h2>
+
+      <p>
+        Après avoir construit un circuit qui te plaît, tu peux l'exporter
+        pour l'ajouter à la librairie.
+      </p>
+
+      <ol class="guide-steps">
+        <li>Construis le circuit sur la plaque.</li>
+        <li>Clique sur <strong>Exporter</strong> dans la barre d'outils.</li>
+        <li>Un fichier JSON est téléchargé.</li>
+        <li>Ouvre ce fichier pour voir sa structure.</li>
+      </ol>
+
+      <p>
+        Le fichier contient les mêmes informations que <code>circuit.js</code>,
+        mais avec les identifiants réels des composants au lieu des indices.
+      </p>
+
+      <pre class="guide-code">{
+  "version": "1.0",
+  "date": "2025-10-09T14:30:00Z",
+  "components": [
+    { "id": "comp_1", "type": "battery", "x": 100, "y": 200, "value": 9 },
+    { "id": "comp_2", "type": "resistor", "x": 300, "y": 200, "value": 100 }
+  ],
+  "connections": [
+    { "from": "comp_1", "fromTerm": 0, "to": "comp_2", "toTerm": 0 },
+    { "from": "comp_2", "fromTerm": 1, "to": "comp_1", "toTerm": 1 }
+  ]
+}</pre>
+
+      <p>
+        Pour intégrer ce circuit à la librairie, il faut convertir les
+        identifiants en indices. Le premier composant du tableau devient
+        l'indice 0, le deuxième l'indice 1, et ainsi de suite. Voir la
+        section suivante.
+      </p>
+    </section>
+
+    <section id="ajouter">
+      <h2 class="display display-md">Ajouter un circuit à la librairie</h2>
+
+      <p>
+        Pour ajouter un circuit, ouvre <code>circuit.js</code> dans un éditeur
+        de texte et ajoute une entrée à la fin du tableau, avant le
+        crochet fermant.
+      </p>
+
+      <p>Voici un exemple complet, prêt à copier :</p>
+
+      <pre class="guide-code">{
+  id: 'parallele',
+  nom: 'Circuit parallèle',
+  description: 'Une pile et deux résistances en parallèle.',
+  categorie: 'Bases',
+  composants: [
+    { type: 'battery', x: 100, y: 200, value: 12 },
+    { type: 'resistor', x: 350, y: 120, value: 100 },
+    { type: 'resistor', x: 350, y: 280, value: 100 }
+  ],
+  connexions: [
+    { de: 0, borne: 0, vers: 1, borneCible: 0 },
+    { de: 0, borne: 0, vers: 2, borneCible: 0 },
+    { de: 1, borne: 1, vers: 0, borneCible: 1 },
+    { de: 2, borne: 1, vers: 0, borneCible: 1 }
+  ]
+}</pre>
+
+      <p>
+        Vérifie que l'identifiant est unique. Vérifie que les bornes utilisées
+        ne sont pas déjà prises. Enregistre le fichier, recharge la page du
+        simulateur, et le nouveau circuit apparaîtra dans la librairie.
+      </p>
+
+      <div class="guide-callout">
+        <p>
+          <strong>Méthode recommandée :</strong> construis d'abord ton circuit
+          dans le simulateur, exporte-le, puis recopie le contenu du fichier
+          JSON dans <code>circuit.js</code> en convertissant les identifiants
+          en indices. Tu éviteras les erreurs de coordonnées et de bornes.
+        </p>
+      </div>
+    </section>
+
+    <section id="erreurs">
+      <h2 class="display display-md">Erreurs fréquentes</h2>
+
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>Symptôme</th>
+            <th>Cause probable</th>
+            <th>Correction</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Le circuit ne s'affiche pas</td>
+            <td>Erreur de syntaxe JavaScript, une virgule manquante.</td>
+            <td>Ouvre la console F12, corrige la ligne indiquée.</td>
+          </tr>
+          <tr>
+            <td>Le circuit s'affiche partiellement</td>
+            <td>Les indices de connexion dépassent la taille du tableau <code>composants</code>.</td>
+            <td>Vérifie que chaque <code>de</code> et <code>vers</code> correspond à un composant existant.</td>
+          </tr>
+          <tr>
+            <td>Deux composants se superposent</td>
+            <td>Positions identiques en x et y.</td>
+            <td>Décale d'au moins 80 pixels.</td>
+          </tr>
+          <tr>
+            <td>Un composant apparaît comme une résistance</td>
+            <td>Le <code>type</code> n'existe pas.</td>
+            <td>Vérifie l'orthographe dans la liste des types.</td>
+          </tr>
+          <tr>
+            <td>La simulation donne des valeurs absurdes</td>
+            <td>Une borne reçoit plusieurs connexions, ou le circuit n'est pas fermé.</td>
+            <td>Trace le circuit à la main sur papier avant de le coder.</td>
+          </tr>
+          <tr>
+            <td>Le circuit apparaît dans la mauvaise catégorie</td>
+            <td>Le champ <code>categorie</code> diffère des autres.</td>
+            <td>Utilise exactement les mêmes chaînes de caractères.</td>
+          </tr>
+          <tr>
+            <td>Charger un circuit plante le simulateur</td>
+            <td>Une valeur est négative ou nulle là où il faut une valeur positive.</td>
+            <td>Résistances et tensions doivent être strictement positives.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="integration">
+      <h2 class="display display-md">Intégration au simulateur</h2>
+
+      <p>
+        Le simulateur expose quelques méthodes qui agissent sur la librairie.
+        Elles sont utilisables depuis la console F12 pour tester.
+      </p>
+
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>Méthode</th>
+            <th>Rôle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>Simulateur.loadFromLibrary(id)</code></td>
+            <td>Charge le circuit dont l'identifiant correspond.</td>
+          </tr>
+          <tr>
+            <td><code>Simulateur.openLibrary()</code></td>
+            <td>Ouvre la fenêtre de la librairie.</td>
+          </tr>
+          <tr>
+            <td><code>CIRCUITS.length</code></td>
+            <td>Nombre total de circuits dans la librairie.</td>
+          </tr>
+          <tr>
+            <td><code>CIRCUITS[0]</code></td>
+            <td>Premier circuit du tableau, pour inspection.</td>
+          </tr>
+          <tr>
+            <td><code>CIRCUITS.map(c =&gt; c.id)</code></td>
+            <td>Liste de tous les identifiants disponibles.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        Pour tester un chargement rapide, ouvre la console du simulateur et
+        tape :
+      </p>
+
+      <pre class="guide-code">Simulateur.loadFromLibrary('serie')</pre>
+
+      <p>
+        Si le circuit existe, il apparaît immédiatement sur la plaque. Sinon,
+        un message d'erreur t'indique que l'identifiant n'existe pas.
+      </p>
+
+      <h3 class="guide-h3">Ordre de chargement</h3>
+
+      <p>
+        Dans <code>simulateur.html</code>, <code>circuit.js</code> doit être
+        chargé avant <code>simulateur.js</code>. L'ordre correct est :
+      </p>
+
+      <pre class="guide-code">&lt;script src="js/circuit.js"&gt;&lt;/script&gt;
+&lt;script src="js/simulateur.js"&gt;&lt;/script&gt;</pre>
+
+      <p>
+        Si l'ordre est inversé, le simulateur ne trouvera pas les données et
+        la librairie sera vide.
+      </p>
+    </section>
+
+    <section id="raccourcis">
+      <h2 class="display display-md">Raccourcis</h2>
+
+      <table class="guide-table">
+        <tr><td><kbd>Échap</kbd></td><td>Fermer la fenêtre de la librairie</td></tr>
+        <tr><td><kbd>Entrée</kbd></td><td>Simuler le circuit chargé</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>S</kbd></td><td>Sauvegarder le circuit en cours</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>O</kbd></td><td>Ouvrir la liste des circuits sauvegardés</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd></td><td>Ouvrir la console développeur</td></tr>
+      </table>
+
+      <p>
+        Ne confonds pas les circuits de la librairie et les circuits
+        sauvegardés localement. Les premiers viennent de <code>circuit.js</code>,
+        les seconds de ton propre travail, stockés dans le navigateur.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="display display-md">Aller plus loin</h2>
+      <p>
+        Une fois ces bases maîtrisées, tu peux étendre la librairie pour
+        couvrir d'autres modules. Chaque circuit ajouté devient un exemple
+        utilisable dans les fiches de TP et dans les cours.
+      </p>
+      <div class="guide-actions">
+        <a href="simulateur.html" class="btn btn-primary">Ouvrir le simulateur</a>
+        <a href="guide.html" class="btn btn-ghost">Retour au guide principal</a>
+      </div>
+    </section>
+
+  </article>
+
+</main>
+
+<footer class="site-foot">
+  <span>KODER · 2026</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="a-propos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </nav>
+</footer>
+
+<script src="js/ui/Effects.js" defer></script>
+<script src="js/ui/theme.js" defer></script>
+<script src="js/ui/CookieBanner.js" defer></script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page introuvable · Laboratoire virtuel</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="css/404.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+</header>
+
+<main class="err-shell">
+  <p class="eyebrow">Erreur 404</p>
+  <h1 class="display display-xl">Cette page<br>n'existe pas</h1>
+  <p class="lead">
+    L'adresse demandée ne correspond à aucune page du site. Le lien est
+    peut-être ancien, ou l'adresse a été mal recopiée.
+  </p>
+  <div class="err-actions">
+    <a href="index.html" class="btn btn-primary">Retour à l'accueil</a>
+    <a href="modules.html" class="btn btn-ghost">Voir les modules</a>
+  </div>
+</main>
+
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

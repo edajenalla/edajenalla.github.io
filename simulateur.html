@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Laboratoire virtuel d'électrotechnique</title>
+<meta name="description" content="Simulateur de circuits électriques pour les travaux pratiques. Fonctionne hors-ligne, sans inscription.">
+<meta property="og:title" content="Laboratoire virtuel d'électrotechnique">
+<meta property="og:description" content="Construire, simuler et mesurer des circuits dans le navigateur.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/images/hero-bulb.jpg">
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="css/theme.css">
+
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="css/landing.css">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+  <link rel="stylesheet" href="css/simulateur.css">
+</head>
+<body>
+<div class="simu-page">
+  <header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+  <nav>
+    <a href="index.html" >Accueil</a>
+    <a href="simulateur.html" aria-current="page">Simulateur</a>
+    <a href="modules.html">Modules</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="guide.html">Guide</a>
+  </nav>
+  
+</header>
+
+  <div class="simu-toolbar">
+    <button id="btnPlayPause" class="btn">Pause</button>
+    <button id="btnReset" class="btn">Réinitialiser</button>
+
+    <span class="separateur"></span>
+
+    <button data-circuit="diviseur_tension" class="btn">Diviseur DC</button>
+    <button data-circuit="rc_serie" class="btn">Circuit RC</button>
+    <button data-circuit="transfo_mono" class="btn">Transformateur</button>
+  </div>
+
+  <div class="simu-conteneur">
+    <iframe
+      id="circuitFrame"
+      src="circuit/war/circuitjs.html"
+      width="100%"
+      height="700"
+      style="border: none;">
+    </iframe>
+  </div>
+</div>
+  <script src="js/simulateur.js"></script>
+  <script src="js/ui/Effects.js" defer></script>
+<script src="js/ui/theme.js"></script>
+<script src="js/ui/CookieBanner.js"></script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

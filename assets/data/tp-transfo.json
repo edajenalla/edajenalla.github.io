@@ -1,0 +1,48 @@
+{
+  "module": "transfo",
+  "titre": "Transformateur monophasé",
+  "tp": [
+    {
+      "id": "transfo-1", "numero": 1, "titre": "Essai à vide", "duree": 40, "difficulte": "moyen",
+      "objectif": "Déterminer le rapport de transformation et les pertes fer.",
+      "prerequis": ["Circuits AC", "Loi d'Ohm"],
+      "materiel": ["Transformateur", "Source AC", "Voltmètre", "Wattmètre"],
+      "theorie": "m = U2/U1. P0 = pertes fer.",
+      "procedure": ["Alimenter le primaire", "Laisser le secondaire ouvert", "Mesurer U1, U2, P0"],
+      "questions": [
+        { "q": "Rapport m ?", "reponse": "m = U2/U1 = N2/N1" },
+        { "q": "Pertes à vide ?", "reponse": "Pertes fer" },
+        { "q": "Courant à vide ?", "reponse": "Faible (2-5% du nominal)" }
+      ],
+      "conclusion": "L'essai à vide donne m et les pertes fer."
+    },
+    {
+      "id": "transfo-2", "numero": 2, "titre": "Essai en court-circuit", "duree": 40, "difficulte": "difficile",
+      "objectif": "Déterminer les pertes cuivre.",
+      "prerequis": ["Essai à vide"],
+      "materiel": ["Transformateur", "Source AC", "Ampèremètre", "Wattmètre"],
+      "theorie": "P1cc = pertes cuivre. Rs = P1cc/I1cc².",
+      "procedure": ["Court-circuiter le secondaire", "Alimenter sous tension réduite", "Mesurer"],
+      "questions": [
+        { "q": "Pertes en cc ?", "reponse": "Pertes cuivre (Joule)" },
+        { "q": "Rs ?", "reponse": "Rs = P1cc/I1cc²" },
+        { "q": "Zs ?", "reponse": "Zs = U1cc/I1cc" }
+      ],
+      "conclusion": "L'essai en cc donne les pertes cuivre."
+    },
+    {
+      "id": "transfo-3", "numero": 3, "titre": "Rendement", "duree": 30, "difficulte": "moyen",
+      "objectif": "Calculer le rendement.",
+      "prerequis": ["Essai à vide", "Essai en cc"],
+      "materiel": ["Transformateur", "Charge variable"],
+      "theorie": "η = P2 / (P2 + Pfer + Pcu).",
+      "procedure": ["Relever P0 et P1cc", "Varier la charge", "Calculer η"],
+      "questions": [
+        { "q": "Formule ?", "reponse": "η = P2 / (P2 + Pfer + Pcu)" },
+        { "q": "η max ?", "reponse": "Quand Pfer = Pcu" },
+        { "q": "η si P2=1000W, Pfer=50W, Pcu=50W ?", "reponse": "90.9%" }
+      ],
+      "conclusion": "Le rendement est élevé (90-98%)."
+    }
+  ]
+}

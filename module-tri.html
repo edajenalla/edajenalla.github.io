@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Courant continu · Laboratoire virtuel</title>
+<meta name="description" content="Cinq TP sur les circuits en courant continu.">
+<meta property="og:image" content="assets/images/hero-bulb.jpg">
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="css/module.css">
+<link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/instrumentsans/v4/pximys0itdpkzchkngyrjw.woff2" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="simulateur.html">Simulateur</a>
+    <a href="modules.html" aria-current="page">Modules</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="guide.html">Guide</a>
+  </nav>
+</header>
+
+<div class="shell crumbs mono">
+  <a href="modules.html">Modules</a><span>/</span><span>Systèmes triphasés</span>
+</div>
+
+<section class="shell module-hero">
+  <p class="eyebrow">Module 03</p>
+  <h1 class="display display-xl">Systèmes<br>triphasés</h1>
+  <p class="lead">
+    Trois tensions sinusoïdales de même amplitude, décalées d'un tiers de
+    période. Ce qui semble plus complexe que le monophasé simplifie en
+    réalité le transport de l'énergie et le fonctionnement des moteurs.
+  </p>
+  <div class="hero-actions">
+    <a href="quiz.html?module=tri" class="btn btn-primary">Passer le quiz triphasé</a>
+  </div>
+</section>
+
+<section class="shell">
+  <h2 class="display display-md section-heading">Ce qu'il faut savoir avant</h2>
+
+  <div class="concept-grid">
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">01</span>
+        <h3 class="concept-name">Tensions simples et composées</h3>
+      </div>
+      <div class="concept-formula">U = √3 × V</div>
+      <div class="concept-explanation">
+        <p>
+          La tension simple V se mesure entre une phase et le neutre. La
+          tension composée U se mesure entre deux phases. Le facteur √3
+          vient de la géométrie du triangle équilatéral formé par les trois
+          vecteurs.
+        </p>
+        <p>
+          Sur le réseau basse tension européen, V vaut 230 V et U vaut
+          400 V. La même installation fournit donc deux niveaux de tension
+          selon la façon dont on se branche.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          Le système triphasé est développé en 1889 par Mikhaïl
+          Dolivo-Dobrovolsky, ingénieur russe travaillant en Allemagne. Il
+          démontre le premier la supériorité du triphasé sur le continu pour
+          le transport de l'énergie sur de longues distances.
+        </p>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">02</span>
+        <h3 class="concept-name">Couplage étoile</h3>
+      </div>
+      <div class="concept-formula">I = J</div>
+      <div class="concept-explanation">
+        <p>
+          Dans un couplage étoile, chaque récepteur est branché entre une
+          phase et le neutre. Le courant qui parcourt la ligne est le même
+          que celui qui traverse le récepteur.
+        </p>
+        <p>
+          Le neutre permet d'alimenter des charges déséquilibrées sans que
+          les tensions ne varient. C'est le couplage utilisé pour la
+          distribution résidentielle.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          Même origine que le triphasé lui-même. Dolivo-Dobrovolsky impose
+          le couplage étoile pour la distribution, car il permet de fournir
+          deux tensions différentes avec un seul réseau.
+        </p>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">03</span>
+        <h3 class="concept-name">Couplage triangle</h3>
+      </div>
+      <div class="concept-formula">I = √3 × J</div>
+      <div class="concept-explanation">
+        <p>
+          Dans un couplage triangle, chaque récepteur est branché entre deux
+          phases. La tension aux bornes vaut donc la tension composée, plus
+          élevée qu'en étoile.
+        </p>
+        <p>
+          Le courant de ligne est √3 fois plus grand que le courant dans
+          chaque branche. Ce couplage est utilisé pour les moteurs de forte
+          puissance et les charges équilibrées.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          L'appellation vient du schéma : les trois récepteurs forment un
+          triangle fermé. Le couplage triangle a été développé en parallèle
+          du couplage étoile, pour répondre aux besoins des moteurs
+          industriels.
+        </p>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">04</span>
+        <h3 class="concept-name">Puissance triphasée</h3>
+      </div>
+      <div class="concept-formula">P = √3 × U × I × cos φ</div>
+      <div class="concept-explanation">
+        <p>
+          En triphasé équilibré, la puissance se calcule à partir des
+          tensions et courants de ligne. Le facteur √3 apparaît parce que
+          les trois phases contribuent chacune pour un tiers, mais la
+          tension utilisée est la tension composée.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          La formule est établie dès les premiers réseaux industriels, à la
+          fin du XIXe siècle. Elle reste aujourd'hui la base du
+          dimensionnement de tous les équipements triphasés.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="shell">
+  <h2 class="display display-md section-heading">Travaux pratiques</h2>
+  <ol class="tp-index">
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">01</span>
+        <span class="tp-name display display-md">Découverte du triphasé</span>
+        <span class="tp-time mono">30 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            On observe trois tensions décalées de 120° à l'oscilloscope. On
+            mesure les tensions simples et composées, et on vérifie la
+            relation qui les lie.
+          </p>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Visualiser les trois tensions déphasées</li>
+            <li>Mesurer V et U</li>
+            <li>Vérifier U = √3 × V</li>
+          </ul>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            Les trois tensions forment un système équilibré. Leur somme
+            instantanée est nulle, ce qui permet d'économiser un conducteur
+            de retour quand les charges sont équilibrées.
+          </p>
+          <div class="tp-formula">v₁ + v₂ + v₃ = 0</div>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Placer une source triphasée</li>
+            <li>Connecter trois résistances en étoile</li>
+            <li>Visualiser les trois tensions à l'oscilloscope</li>
+            <li>Mesurer chaque tension simple</li>
+            <li>Mesurer les tensions composées entre phases</li>
+            <li>Vérifier U = √3 × V</li>
+          </ol>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            Chaque tension simple mesure 230 V. Les tensions composées
+            mesurent 400 V. Le rapport vaut 1,732, ce qui correspond à √3 à
+            trois décimales près.
+          </p>
+        </div>
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>Un système triphasé équilibré, en couplage étoile.</p>
+          <a href="simulateur.html?example=tri-equilibre" class="btn btn-primary btn-load-example">Charger l'exemple</a>
+        </div>
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=tri-1" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=systeme+triphase+cours+electrotechnique+francais" target="_blank" rel="noopener" class="btn btn-ghost">Voir une vidéo</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">02</span>
+        <span class="tp-name display display-md">Couplage étoile</span>
+        <span class="tp-time mono">40 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            On mesure les courants dans chaque branche et dans chaque ligne,
+            et on vérifie qu'ils sont égaux dans un couplage étoile.
+          </p>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Vérifier I = J en couplage étoile</li>
+            <li>Mesurer la tension aux bornes de chaque récepteur</li>
+            <li>Comparer avec un couplage triangle</li>
+          </ul>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            Chaque récepteur est branché entre une phase et le neutre. Le
+            courant de ligne, qui circule dans le conducteur de phase, est
+            également celui qui traverse le récepteur.
+          </p>
+          <div class="tp-formula">I_ligne = I_phase</div>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Connecter trois résistances en étoile</li>
+            <li>Insérer un ampèremètre dans chaque ligne</li>
+            <li>Insérer un ampèremètre dans chaque branche</li>
+            <li>Comparer les valeurs</li>
+          </ol>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            Les six courants mesurés sont identiques, à la précision de la
+            mesure près. Chaque ligne est parcourue par le même courant que
+            le récepteur correspondant.
+          </p>
+        </div>
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>Trois résistances en étoile sur une source triphasée.</p>
+          <a href="simulateur.html?example=tri-etoile" class="btn btn-primary btn-load-example">Charger l'exemple</a>
+        </div>
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=tri-2" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=couplage+etoile+triphase+cours+francais" target="_blank" rel="noopener" class="btn btn-ghost">Voir une vidéo</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">03</span>
+        <span class="tp-name display display-md">Couplage triangle</span>
+        <span class="tp-time mono">40 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            On recommence la mesure avec un couplage triangle. Cette fois,
+            le courant de ligne vaut √3 fois le courant de phase.
+          </p>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Vérifier I = √3 × J</li>
+            <li>Comprendre la différence avec le couplage étoile</li>
+            <li>Observer l'absence de neutre</li>
+          </ul>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            Chaque récepteur est branché entre deux phases. Le courant de
+            ligne est la somme vectorielle de deux courants de phase, d'où
+            le facteur √3.
+          </p>
+          <div class="tp-formula">I_ligne = √3 × J_phase</div>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Connecter trois résistances en triangle</li>
+            <li>Mesurer le courant dans chaque ligne</li>
+            <li>Mesurer le courant dans chaque branche</li>
+            <li>Vérifier le rapport √3</li>
+          </ol>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            Le courant de ligne vaut 1,732 fois le courant de phase, comme
+            prévu par la théorie.
+          </p>
+        </div>
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>Trois résistances en triangle sur une source triphasée.</p>
+          <a href="simulateur.html?example=tri-triangle" class="btn btn-primary btn-load-example">Charger l'exemple</a>
+        </div>
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=tri-3" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=couplage+triangle+triphase+cours+francais" target="_blank" rel="noopener" class="btn btn-ghost">Voir une vidéo</a>
+        </div>
+      </div>
+    </li>
+
+  </ol>
+</section>
+<footer class="site-foot">
+ <span>KODER · 2026</span>
+  <nav>
+    <a href="a-propos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </nav>
+</footer>
+
+<script>
+document.querySelectorAll('.tp-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const d = btn.nextElementSibling;
+    const open = !d.hidden;
+    d.hidden = open;
+    btn.setAttribute('aria-expanded', String(!open));
+  });
+});
+</script>
+<script src="js/ui/Effects.js" defer></script>
+<script src="js/ui/theme.js"></script>
+<script src="js/ui/CookieBanner.js"></script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

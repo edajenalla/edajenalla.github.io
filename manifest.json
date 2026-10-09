@@ -1,0 +1,23 @@
+{
+  "name": "Laboratoire Virtuel d'Électrotechnique",
+  "short_name": "Labo Virtuel",
+  "description": "Simulateur de circuits électriques — ENSET Antsiranana",
+  "start_url": "index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "lang": "fr",
+  "categories": ["education", "productivity"],
+  "icons": [
+    { "src": "circuit/war/icon128.png", "sizes": "128x128", "type": "image/png" },
+    { "src": "circuit/war/icon512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "assets/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Simulateur DC", "url": "simulateur.html" },
+    { "name": "Simulateur AC", "url": "simulateur.html?example=ac-rc" },
+    { "name": "Quiz", "url": "quiz.html" }
+  ]
+}

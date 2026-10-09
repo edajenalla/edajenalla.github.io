@@ -1,0 +1,66 @@
+{
+  "module": "ac",
+  "titre": "Circuits électriques en courant alternatif",
+  "tp": [
+    {
+      "id": "ac-1", "numero": 1, "titre": "Circuit RL série", "duree": 40, "difficulte": "moyen",
+      "objectif": "Étudier un circuit RL et mesurer le déphasage.",
+      "prerequis": ["Circuits DC", "Nombres complexes"],
+      "materiel": ["Source AC 230V/50Hz", "R 100Ω", "L 0.1H"],
+      "theorie": "Z = R + jX_L. |Z| = √(R² + X_L²). φ = arctan(X_L/R).",
+      "procedure": ["Placer la source AC", "Ajouter R et L", "Connecter", "Observer à l'oscilloscope"],
+      "questions": [
+        { "q": "X_L ?", "reponse": "31.4 Ω" },
+        { "q": "|Z| ?", "reponse": "104.8 Ω" },
+        { "q": "I ?", "reponse": "2.19 A" },
+        { "q": "φ ?", "reponse": "17.4°" }
+      ],
+      "conclusion": "En RL, le courant est en retard sur la tension."
+    },
+    {
+      "id": "ac-2", "numero": 2, "titre": "Circuit RC série", "duree": 40, "difficulte": "moyen",
+      "objectif": "Étudier un circuit RC.",
+      "prerequis": ["Circuits DC", "Nombres complexes"],
+      "materiel": ["Source AC", "R 100Ω", "C 10µF"],
+      "theorie": "Z = R - jX_C. X_C = 1/(2πfC).",
+      "procedure": ["Placer la source", "Ajouter R et C", "Connecter", "Observer"],
+      "questions": [
+        { "q": "X_C ?", "reponse": "318.3 Ω" },
+        { "q": "|Z| ?", "reponse": "333.6 Ω" },
+        { "q": "I ?", "reponse": "0.69 A" },
+        { "q": "φ ?", "reponse": "-72.6°" }
+      ],
+      "conclusion": "En RC, le courant est en avance sur la tension."
+    },
+    {
+      "id": "ac-3", "numero": 3, "titre": "Circuit RLC série — Résonance", "duree": 50, "difficulte": "difficile",
+      "objectif": "Étudier la résonance.",
+      "prerequis": ["Circuit RL", "Circuit RC"],
+      "materiel": ["Source AC variable", "R", "L", "C"],
+      "theorie": "À la résonance, X_L = X_C. f₀ = 1/(2π√(LC)).",
+      "procedure": ["Construire le RLC", "Varier la fréquence", "Identifier f₀"],
+      "questions": [
+        { "q": "f₀ ?", "reponse": "159 Hz" },
+        { "q": "Q ?", "reponse": "3.16" },
+        { "q": "Δf ?", "reponse": "50.3 Hz" },
+        { "q": "Z à f₀ ?", "reponse": "= R = 100 Ω" }
+      ],
+      "conclusion": "À la résonance, Z minimale et I maximal."
+    },
+    {
+      "id": "ac-4", "numero": 4, "titre": "Puissances en AC", "duree": 50, "difficulte": "difficile",
+      "objectif": "Calculer P, Q, S et cos φ.",
+      "prerequis": ["Circuit RL", "Circuit RC"],
+      "materiel": ["Source AC", "R", "L", "Wattmètre"],
+      "theorie": "P = U·I·cos φ. Q = U·I·sin φ. S = U·I. S² = P² + Q².",
+      "procedure": ["Construire un circuit RL", "Mesurer U, I, φ", "Calculer P, Q, S"],
+      "questions": [
+        { "q": "P ?", "reponse": "U × I × cos φ" },
+        { "q": "Q ?", "reponse": "U × I × sin φ" },
+        { "q": "S ?", "reponse": "U × I" },
+        { "q": "Vérifier S² = P² + Q² ?", "reponse": "Vérifié" }
+      ],
+      "conclusion": "Le triangle des puissances relie P, Q, S."
+    }
+  ]
+}

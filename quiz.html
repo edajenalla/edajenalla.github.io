@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz · Laboratoire virtuel</title>
+<meta name="description" content="Quiz d'évaluation par module : fondamentaux, énergie, analogique, numérique.">
+<meta property="og:image" content="assets/images/hero-bulb.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="css/quiz.css">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="simulateur.html">Simulateur</a>
+    <a href="modules.html">Modules</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="quiz.html" aria-current="page">Quiz</a>
+    <a href="guide.html">Guide</a>
+  </nav>
+</header>
+
+<main class="quiz-shell">
+
+  <!-- ÉCRAN DE SÉLECTION -->
+  <section id="quizSelect" class="quiz-step">
+    <p class="eyebrow">Évaluation</p>
+    <h1 class="display display-lg">Choisir un<br>module</h1>
+    <p class="lead">
+      Un quiz par module. Dix questions, explications après chaque réponse,
+      seuil de validation à sept sur dix.
+    </p>
+
+    <div class="quiz-picker" id="quizPicker">
+      <!-- Rempli par JS -->
+    </div>
+  </section>
+
+  <!-- ÉCRAN D'INTRODUCTION -->
+  <section id="quizIntro" class="quiz-step" hidden>
+    <p class="eyebrow" id="introEyebrow">Évaluation</p>
+    <h1 class="display display-lg" id="introTitle">—</h1>
+    <p class="lead" id="introDesc">—</p>
+    <dl class="quiz-facts">
+      <div><dt>Questions</dt><dd>10</dd></div>
+      <div><dt>Durée</dt><dd>15 min</dd></div>
+      <div><dt>Seuil</dt><dd>7/10</dd></div>
+    </dl>
+    <div class="quiz-actions">
+      <button class="btn btn-primary" id="btnStart">Commencer</button>
+      <button class="btn btn-ghost" id="btnBackToSelect">Changer de module</button>
+    </div>
+  </section>
+
+  <!-- ÉCRAN DE QUESTION -->
+  <section id="quizQuestion" class="quiz-step" hidden>
+    <div class="quiz-top">
+      <div class="mono"><span id="qCurrent">1</span> / <span id="qTotal">10</span></div>
+      <div class="mono" id="qTimer">00:00</div>
+    </div>
+    <div class="quiz-track"><div id="qFill"></div></div>
+    <h2 class="quiz-text" id="qText"></h2>
+    <div class="quiz-options" id="qOptions"></div>
+    <div class="quiz-feedback" id="qFeedback" hidden></div>
+    <div class="quiz-actions">
+      <button class="btn btn-primary" id="qValidate">Valider</button>
+      <button class="btn btn-ghost" id="qNext" hidden>Question suivante</button>
+    </div>
+  </section>
+
+  <!-- ÉCRAN DE RÉSULTAT -->
+  <section id="quizResult" class="quiz-step" hidden>
+    <p class="eyebrow">Résultat</p>
+    <h1 class="display display-lg" id="rTitle">—</h1>
+    <p class="lead" id="rMessage">—</p>
+    <div class="result-score">
+      <span id="rScore">0</span><span>/ 10</span>
+    </div>
+    <div class="result-detail" id="rDetails"></div>
+    <div class="quiz-actions">
+      <button class="btn btn-primary" id="btnRestart">Recommencer</button>
+      <button class="btn btn-ghost" id="btnBackFromResult">Changer de module</button>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <span>KODER · 2026</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="a-propos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </nav>
+</footer>
+
+<script src="js/cours-data.js"></script>
+<script src="js/modules-data.js"></script>
+<script src="js/parcours-data.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/ui/Effects.js" defer></script>
+<script src="js/ui/theme.js" defer></script>
+<script src="js/ui/CookieBanner.js" defer></script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

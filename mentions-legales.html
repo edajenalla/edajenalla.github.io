@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions légales · Laboratoire virtuel</title>
+<meta name="description" content="Éditeur, hébergeur, données personnelles, cookies.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="stylesheet" href="css/mention.css">
+<link rel="stylesheet" href="css/effect.css">
+<link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/instrumentsans/v4/pximys0itdpkzchkngyrjw.woff2" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="simulateur.html">Simulateur</a>
+    <a href="modules.html">Modules</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="guide.html">Guide</a>
+  </nav>
+</header>
+
+<main class="legal-page">
+
+  <section>
+    <p class="eyebrow">Mentions légales</p>
+    <h1 class="display display-lg">Éditeur<br>et hébergeur</h1>
+  </section>
+
+  <section>
+    <h2>Éditeur du site</h2>
+    <dl>
+      <div><dt>Nom</dt><dd>[Ton nom]</dd></div>
+      <div><dt>Statut</dt><dd>Étudiant en licence STI, ENSET d'Antsiranana</dd></div>
+      <div><dt>Adresse</dt><dd>ENSET d'Antsiranana, Université d'Antsiranana, Madagascar</dd></div>
+      <div><dt>Contact</dt><dd><a href="mailto:contact@example.org">contact@example.org</a></dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Hébergeur</h2>
+    <dl>
+      <div><dt>Nom</dt><dd>GitHub Inc.</dd></div>
+      <div><dt>Service</dt><dd>GitHub Pages</dd></div>
+      <div><dt>Adresse</dt><dd>88 Colin P Kelly Jr Street, San Francisco, CA 94107, États-Unis</dd></div>
+      <div><dt>Site</dt><dd><a href="https://github.com" rel="noopener">github.com</a></dd></div>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Propriété intellectuelle</h2>
+    <p>
+      Le code source de ce laboratoire est publié sous licence MIT. Il peut
+      être consulté, modifié et redistribué librement, à condition de
+      conserver la mention de copyright d'origine.
+    </p>
+    <p>
+      Les textes pédagogiques, les fiches de travaux pratiques et les
+      illustrations sont produits pour ce projet. Ils peuvent être réutilisés
+      dans un cadre pédagogique avec mention de la source.
+    </p>
+  </section>
+
+  <section>
+    <h2>Données personnelles</h2>
+    <p>
+      Ce site ne collecte aucune donnée personnelle. Aucune inscription n'est
+      demandée. Aucun cookie de mesure d'audience n'est posé. Les circuits
+      sauvegardés restent stockés dans le navigateur de l'utilisateur, sur sa
+      propre machine.
+    </p>
+    <p>
+      Aucune information n'est transmise à un serveur tiers. Le site peut donc
+      être utilisé sans consentement particulier.
+    </p>
+  </section>
+
+  <section>
+    <h2>Cookies</h2>
+    <p>
+      Un seul élément est stocké localement : la préférence de thème, si
+      l'utilisateur en change une. Cet élément ne quitte pas le navigateur et
+      n'identifie personne.
+    </p>
+  </section>
+
+  <section>
+    <h2>Responsabilité</h2>
+    <p>
+      Le laboratoire est fourni tel quel, à des fins pédagogiques. Les
+      résultats affichés par le simulateur sont exacts sur le plan
+      mathématique, dans les limites des modèles utilisés. Ils ne remplacent
+      pas une vérification sur un montage réel avant tout usage industriel.
+    </p>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <span>KODER · 2026</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="a-propos.html">À propos</a>
+  </nav>
+</footer>
+
+<script src="js/ui/Effects.js" defer></script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

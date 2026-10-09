@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide · Laboratoire virtuel</title>
+<meta name="description" content="Mode d'emploi du laboratoire : parcours, modules, cours, circuit.js, quiz.">
+<meta property="og:image" content="assets/images/hero-bulb.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="css/guide.css">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="simulateur.html">Simulateur</a>
+    <a href="modules.html">Modules</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="guide.html" aria-current="page">Guide</a>
+  </nav>
+</header>
+
+<main class="guide-shell">
+
+  <aside class="guide-nav">
+    <p class="eyebrow">Sommaire</p>
+    <nav>
+      <a href="#decouvrir">Découvrir le labo</a>
+      <a href="#parcours">Choisir un parcours</a>
+      <a href="#modules">Modules et cours</a>
+      <a href="#circuitjs">Utiliser circuit.js</a>
+      <a href="#ouvrir">Ouvrir la librairie</a>
+      <a href="#charger">Charger un circuit</a>
+      <a href="#structure">Structure du fichier</a>
+      <a href="#ajouter">Ajouter un circuit</a>
+      <a href="#exporter">Exporter son circuit</a>
+      <a href="#erreurs">Erreurs fréquentes</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#raccourcis">Raccourcis</a>
+      <a href="#videos">Vidéos</a>
+    </nav>
+  </aside>
+
+  <article class="guide-body">
+
+    <section id="decouvrir">
+      <h1 class="display display-lg">Guide du<br>laboratoire</h1>
+      <p class="lead">
+        Ce laboratoire contient quatre parcours, onze modules, vingt-et-un
+        cours, un simulateur de circuits, une librairie d'exemples prêts à
+        charger et un quiz par module. Voici comment tout s'articule.
+      </p>
+
+      <div class="guide-figure-grid">
+        <a href="parcours.html" class="guide-link-card">
+          <span class="mono">Parcours</span>
+          <strong>Quatre chemins progressifs</strong>
+          <span>Du courant continu à la transmission.</span>
+        </a>
+        <a href="modules.html" class="guide-link-card">
+          <span class="mono">Modules</span>
+          <strong>Onze modules</strong>
+          <span>Quatre avec simulateur, sept avec cours.</span>
+        </a>
+        <a href="simulateur.html" class="guide-link-card">
+          <span class="mono">Simulateur</span>
+          <strong>Construire et mesurer</strong>
+          <span>Charger un circuit, modifier, simuler.</span>
+        </a>
+        <a href="quiz.html" class="guide-link-card">
+          <span class="mono">Quiz</span>
+          <strong>Un quiz par module</strong>
+          <span>Dix questions, correction expliquée.</span>
+        </a>
+      </div>
+    </section>
+
+    <section id="parcours">
+      <h2 class="display display-md">Choisir un parcours</h2>
+      <p>
+        Les onze modules peuvent se suivre librement. Mais un chemin
+        progressif aide. Quatre parcours sont proposés, selon l'objectif
+        visé.
+      </p>
+
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>Parcours</th>
+            <th>Modules</th>
+            <th>Niveau</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="parcours.html#parcours-bases">Bases</a></td>
+            <td>DC, AC, Électronique</td>
+            <td>Débutant</td>
+          </tr>
+          <tr>
+            <td><a href="parcours.html#parcours-energie">Énergie</a></td>
+            <td>AC, Triphasé, Transformateur, Énergie</td>
+            <td>Intermédiaire</td>
+          </tr>
+          <tr>
+            <td><a href="parcours.html#parcours-analogique">Analogique</a></td>
+            <td>Électronique, Semi-conducteurs, Amplification, Filtrage</td>
+            <td>Intermédiaire</td>
+          </tr>
+          <tr>
+            <td><a href="parcours.html#parcours-numerique">Numérique</a></td>
+            <td>Logique, Transmission, Énergie</td>
+            <td>Avancé</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="modules">
+      <h2 class="display display-md">Modules et cours</h2>
+      <p>
+        Onze modules sont rangés en quatre catégories.
+      </p>
+
+      <dl class="guide-dl">
+        <div>
+          <dt>Fondamentaux</dt>
+          <dd>Courant continu et courant alternatif. Ces deux modules disposent d'un simulateur et de fiches de TP.</dd>
+        </div>
+        <div>
+          <dt>Énergie</dt>
+          <dd>Systèmes triphasés et transformateur. Simulateur pour la partie triphasé.</dd>
+        </div>
+        <div>
+          <dt>Analogique</dt>
+          <dd>Électronique fondamentale, semi-conducteurs, amplification, filtrage.</dd>
+        </div>
+        <div>
+          <dt>Numérique</dt>
+          <dd>Logique numérique et transmission.</dd>
+        </div>
+      </dl>
+
+      <p>
+        Les modules « existants » affichent une liste de TP numérotés. Les
+        modules « cours » affichent une liste de chapitres, chacun renvoyant
+        vers une page dédiée avec formule, explication, origine et schémas.
+      </p>
+    </section>
+
+    <section id="circuitjs">
+      <h2 class="display display-md">Utiliser circuit.js</h2>
+      <p>
+        <code>circuit.js</code> contient la librairie de circuits prédéfinis.
+        C'est ce fichier qui permet de partir d'un exemple fonctionnel plutôt
+        que d'une plaque vide.
+      </p>
+      <p>
+        Chaque fois que tu cliques sur « Bibliothèque » ou sur « Charger un
+        exemple » dans une fiche de TP, le simulateur lit <code>circuit.js</code>,
+        affiche la liste, et reconstruit le circuit choisi composant par
+        composant.
+      </p>
+
+      <div class="guide-callout">
+        <p>
+          <strong>Important :</strong> le fichier ne contient aucune logique,
+          seulement des données. C'est un catalogue. Toute la mécanique de
+          construction se fait dans <code>simulateur.js</code>.
+        </p>
+      </div>
+    </section>
+
+    <section id="ouvrir">
+      <h2 class="display display-md">Ouvrir la librairie</h2>
+
+      <p>Deux moyens d'y accéder depuis le simulateur.</p>
+
+      <ol class="guide-steps">
+        <li>
+          Clique sur <strong>Bibliothèque</strong> dans la barre d'outils du
+          haut. Une fenêtre apparaît avec la liste des circuits rangés par
+          catégorie.
+        </li>
+        <li>
+          Ou depuis une fiche de TP, clique sur <strong>Charger l'exemple</strong>.
+          Le simulateur s'ouvre avec le circuit déjà en place.
+        </li>
+      </ol>
+
+      <p>
+        La fenêtre se ferme avec la croix en haut à droite, en cliquant en
+        dehors, ou avec <kbd>Échap</kbd>.
+      </p>
+    </section>
+
+    <section id="charger">
+      <h2 class="display display-md">Charger un circuit</h2>
+
+      <p>
+        Charger un circuit remplace le contenu actuel de la plaque. Si tu as
+        construit quelque chose que tu veux garder, sauvegarde-le avant.
+      </p>
+
+      <ol class="guide-steps">
+        <li>Ouvre la librairie.</li>
+        <li>Repère le circuit voulu dans la liste.</li>
+        <li>Clique sur son nom.</li>
+        <li>La fenêtre se ferme, le circuit apparaît sur la plaque.</li>
+        <li>Clique sur <strong>Simuler</strong> pour voir le résultat.</li>
+      </ol>
+
+      <p>
+        Les composants apparaissent à leurs positions prédéfinies. Les bornes
+        déjà connectées sont marquées en vert.
+      </p>
+
+      <p>
+        Tu peux aussi tester un chargement direct depuis la console
+        développeur (<kbd>F12</kbd>) :
+      </p>
+
+      <pre class="guide-code">Simulateur.loadFromLibrary('serie')</pre>
+
+      <p>
+        Si l'identifiant existe, le circuit s'affiche immédiatement. Sinon,
+        un message indique que le circuit est introuvable.
+      </p>
+    </section>
+
+    <section id="structure">
+      <h2 class="display display-md">Structure du fichier</h2>
+
+      <p>
+        <code>circuit.js</code> contient un tableau d'objets. Chaque objet
+        représente un circuit. Voici un exemple complet :
+      </p>
+
+      <pre class="guide-code">{
+  id: 'serie',
+  nom: 'Circuit série',
+  description: 'Une pile et deux résistances en série.',
+  categorie: 'Bases',
+  composants: [
+    { type: 'battery',  x: 100, y: 200, value: 12 },
+    { type: 'resistor', x: 300, y: 200, value: 100 },
+    { type: 'resistor', x: 500, y: 200, value: 200 }
+  ],
+  connexions: [
+    { de: 0, borne: 0, vers: 1, borneCible: 0 },
+    { de: 1, borne: 1, vers: 2, borneCible: 0 },
+    { de: 2, borne: 1, vers: 0, borneCible: 1 }
+  ]
+}</pre>
+
+      <h3 class="guide-h3">Les six champs d'un circuit</h3>
+
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>Champ</th>
+            <th>Rôle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>id</code></td>
+            <td>Identifiant unique, en minuscules, sans espaces.</td>
+          </tr>
+          <tr>
+            <td><code>nom</code></td>
+            <td>Titre affiché dans la fenêtre de la librairie.</td>
+          </tr>
+          <tr>
+            <td><code>description</code></td>
+            <td>Phrase courte qui apparaît sous le nom.</td>
+          </tr>
+          <tr>
+            <td><code>categorie</code></td>
+            <td>Groupe auquel le circuit appartient. Sert au rangement.</td>
+          </tr>
+          <tr>
+            <td><code>composants</code></td>
+            <td>Tableau des composants qui forment le circuit.</td>
+          </tr>
+          <tr>
+            <td><code>connexions</code></td>
+            <td>Tableau des connexions entre les bornes.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="guide-h3">Les quatre champs d'un composant</h3>
+
+      <pre class="guide-code">{ type: 'battery', x: 100, y: 200, value: 12 }</pre>
+
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>Champ</th>
+            <th>Rôle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>type</code></td>
+            <td>Nature du composant. Doit correspondre à un type existant.</td>
+          </tr>
+          <tr>
+            <td><code>x</code></td>
+            <td>Position horizontale en pixels depuis le bord gauche de la plaque.</td>
+          </tr>
+          <tr>
+            <td><code>y</code></td>
+            <td>Position verticale en pixels depuis le bord supérieur.</td>
+          </tr>
+          <tr>
+            <td><code>value</code></td>
+            <td>Valeur numérique. Tension en volts pour une pile, résistance en ohms pour une résistance. Peut être omis pour les composants sans valeur.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 class="guide-h3">Types de composants disponibles</h3>
+
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Nom</th>
+            <th>Unité</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>battery</code></td><td>Pile</td><td>V</td></tr>
+          <tr><td><code>resistor</code></td><td>Résistance</td><td>Ω</td></tr>
+          <tr><td><code>lamp</code></td><td>Lampe</td><td>Ω</td></tr>
+          <tr><td><code>switch</code></td><td>Interrupteur</td><td>—</td></tr>
+          <tr><td><code>led</code></td><td>LED</td><td>V</td></tr>
+          <tr><td><code>fuse</code></td><td>Fusible</td><td>A</td></tr>
+          <tr><td><code>motor</code></td><td>Moteur</td><td>Ω</td></tr>
+          <tr><td><code>ammeter</code></td><td>Ampèremètre</td><td>—</td></tr>
+          <tr><td><code>voltmeter</code></td><td>Voltmètre</td><td>—</td></tr>
+          <tr><td><code>wire</code></td><td>Fil</td><td>—</td></tr>
+        </tbody>
+      </table>
+
+      <h3 class="guide-h3">Les quatre champs d'une connexion</h3>
+
+      <pre class="guide-code">{ de: 0, borne: 0, vers: 1, borneCible: 0 }</pre>
+
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>Champ</th>
+            <th>Rôle</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>de</code></td>
+            <td>Indice du premier composant dans le tableau <code>composants</code>. Le premier a l'indice 0.</td>
+          </tr>
+          <tr>
+            <td><code>borne</code></td>
+            <td>Numéro de la borne du premier composant. 0 pour la gauche, 1 pour la droite.</td>
+          </tr>
+          <tr>
+            <td><code>vers</code></td>
+            <td>Indice du deuxième composant.</td>
+          </tr>
+          <tr>
+            <td><code>borneCible</code></td>
+            <td>Numéro de la borne du deuxième composant.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="guide-callout">
+        <p>
+          <strong>Attention :</strong> chaque borne ne peut recevoir qu'une
+          seule connexion. Si deux lignes utilisent la même borne du même
+          composant, la deuxième est ignorée.
+        </p>
+      </div>
+    </section>
+
+    <section id="ajouter">
+      <h2 class="display display-md">Ajouter un circuit</h2>
+
+      <p>
+        Pour ajouter un circuit, ouvre <code>circuit.js</code> dans un éditeur
+        de texte et insère une entrée à la fin du tableau, avant le crochet
+        fermant.
+      </p>
+
+      <p>Voici un exemple complet, prêt à copier :</p>
+
+      <pre class="guide-code">{
+  id: 'parallele',
+  nom: 'Circuit parallèle',
+  description: 'Une pile et deux résistances en parallèle.',
+  categorie: 'Bases',
+  composants: [
+    { type: 'battery',  x: 100, y: 200, value: 12 },
+    { type: 'resistor', x: 350, y: 120, value: 100 },
+    { type: 'resistor', x: 350, y: 280, value: 100 }
+  ],
+  connexions: [
+    { de: 0, borne: 0, vers: 1, borneCible: 0 },
+    { de: 0, borne: 0, vers: 2, borneCible: 0 },
+    { de: 1, borne: 1, vers: 0, borneCible: 1 },
+    { de: 2, borne: 1, vers: 0, borneCible: 1 }
+  ]
+}</pre>
+
+      <p>
+        Enregistre le fichier, recharge la page du simulateur. Le nouveau
+        circuit apparaît dans la librairie.
+      </p>
+
+      <div class="guide-callout">
+        <p>
+          <strong>Méthode recommandée :</strong> construis d'abord ton circuit
+          dans le simulateur, exporte-le en JSON, puis recopie le contenu
+          dans <code>circuit.js</code> en convertissant les identifiants en
+          indices. Tu éviteras les erreurs de coordonnées et de bornes.
+        </p>
+      </div>
+    </section>
+
+    <section id="exporter">
+      <h2 class="display display-md">Exporter son circuit</h2>
+
+      <p>
+        Après avoir construit un circuit sur la plaque, tu peux l'exporter
+        pour l'ajouter à la librairie.
+      </p>
+
+      <ol class="guide-steps">
+        <li>Construis le circuit dans le simulateur.</li>
+        <li>Clique sur <strong>Exporter</strong> dans la barre d'outils.</li>
+        <li>Un fichier JSON est téléchargé.</li>
+        <li>Ouvre ce fichier pour voir sa structure.</li>
+      </ol>
+
+      <pre class="guide-code">{
+  "version": "1.0",
+  "date": "2025-10-09T14:30:00Z",
+  "components": [
+    { "id": "comp_1", "type": "battery",  "x": 100, "y": 200, "value": 9 },
+    { "id": "comp_2", "type": "resistor", "x": 300, "y": 200, "value": 100 }
+  ],
+  "connections": [
+    { "from": "comp_1", "fromTerm": 0, "to": "comp_2", "toTerm": 0 },
+    { "from": "comp_2", "fromTerm": 1, "to": "comp_1", "toTerm": 1 }
+  ]
+}</pre>
+
+      <p>
+        Pour intégrer ce circuit à la librairie, convertis les identifiants
+        en indices. Le premier composant du tableau devient l'indice 0, le
+        deuxième l'indice 1, et ainsi de suite. Puis remplace les noms de
+        champs <code>components</code> et <code>connections</code> par
+        <code>composants</code> et <code>connexions</code>.
+      </p>
+    </section>
+
+    <section id="erreurs">
+      <h2 class="display display-md">Erreurs fréquentes</h2>
+
+      <table class="guide-table">
+        <thead>
+          <tr>
+            <th>Symptôme</th>
+            <th>Cause</th>
+            <th>Correction</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Le circuit ne s'affiche pas</td>
+            <td>Virgule manquante ou guillemet mal fermé</td>
+            <td>Ouvre la console <kbd>F12</kbd>, corrige la ligne indiquée</td>
+          </tr>
+          <tr>
+            <td>Le circuit s'affiche partiellement</td>
+            <td>Un indice de connexion dépasse la taille du tableau</td>
+            <td>Vérifie que chaque <code>de</code> et <code>vers</code> existe</td>
+          </tr>
+          <tr>
+            <td>Deux composants se superposent</td>
+            <td>Positions identiques en x et y</td>
+            <td>Décale d'au moins 80 pixels</td>
+          </tr>
+          <tr>
+            <td>Un composant apparaît comme une résistance</td>
+            <td>Le <code>type</code> n'existe pas</td>
+            <td>Vérifie l'orthographe dans la liste des types</td>
+          </tr>
+          <tr>
+            <td>Valeurs absurdes à la simulation</td>
+            <td>Le circuit n'est pas fermé, ou une borne a deux connexions</td>
+            <td>Trace le circuit à la main sur papier avant de le coder</td>
+          </tr>
+          <tr>
+            <td>Circuit dans la mauvaise catégorie</td>
+            <td>Le champ <code>categorie</code> diffère</td>
+            <td>Utilise exactement la même chaîne que les autres circuits</td>
+          </tr>
+          <tr>
+            <td>Charger un circuit plante</td>
+            <td>Valeur négative là où il faut du positif</td>
+            <td>Résistances et tensions strictement positives</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="quiz">
+      <h2 class="display display-md">Quiz</h2>
+
+      <p>
+        Chaque module dispose d'un quiz de dix questions. Les explications
+        apparaissent après chaque réponse. Le seuil de validation est de sept
+        sur dix.
+      </p>
+
+      <p>
+        Les résultats sont conservés localement. Ils permettent de suivre sa
+        progression dans le temps, et de comparer ses scores entre les
+        modules.
+      </p>
+
+      <div class="guide-actions">
+        <a href="quiz.html" class="btn btn-primary">Ouvrir les quiz</a>
+      </div>
+    </section>
+
+    <section id="raccourcis">
+      <h2 class="display display-md">Raccourcis</h2>
+
+      <table class="guide-table">
+        <tr><td><kbd>Échap</kbd></td><td>Fermer la librairie ou désélectionner</td></tr>
+        <tr><td><kbd>Entrée</kbd></td><td>Simuler le circuit chargé</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>S</kbd></td><td>Sauvegarder le circuit en cours</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>O</kbd></td><td>Ouvrir la liste des circuits sauvegardés</td></tr>
+        <tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>I</kbd></td><td>Ouvrir la console développeur</td></tr>
+      </table>
+
+      <p>
+        Les circuits de la librairie viennent de <code>circuit.js</code>. Les
+        circuits sauvegardés viennent de ton propre travail, stockés dans le
+        navigateur. Les deux apparaissent dans le simulateur, mais ne se
+        mélangent pas.
+      </p>
+    </section>
+
+    <section id="videos">
+      <h2 class="display display-md">Vidéos</h2>
+
+      <p>
+        Une sélection de vidéos en français pour approfondir chaque notion.
+      </p>
+
+      <div class="video-grid">
+        <a class="video-card" href="https://www.youtube.com/results?search_query=loi+d+ohm+cours+francais" target="_blank" rel="noopener">
+          <span class="video-tag mono">Module 01</span>
+          <strong>Loi d'Ohm</strong>
+          <span>Relation tension, courant, résistance.</span>
+        </a>
+        <a class="video-card" href="https://www.youtube.com/results?search_query=lois+de+kirchhoff+noeuds+mailles+francais" target="_blank" rel="noopener">
+          <span class="video-tag mono">Module 01</span>
+          <strong>Lois de Kirchhoff</strong>
+          <span>Loi des nœuds, loi des mailles.</span>
+        </a>
+        <a class="video-card" href="https://www.youtube.com/results?search_query=circuits+alternatifs+impedance+resonance+francais" target="_blank" rel="noopener">
+          <span class="video-tag mono">Module 02</span>
+          <strong>Impédance et résonance</strong>
+          <span>Nombres complexes en électrotechnique.</span>
+        </a>
+        <a class="video-card" href="https://www.youtube.com/results?search_query=triphase+etoile+triangle+cours+francais" target="_blank" rel="noopener">
+          <span class="video-tag mono">Module 03</span>
+          <strong>Triphasé</strong>
+          <span>Couplages étoile et triangle.</span>
+        </a>
+        <a class="video-card" href="https://www.youtube.com/results?search_query=transformateur+monophase+essai+vide+court+circuit+francais" target="_blank" rel="noopener">
+          <span class="video-tag mono">Module 04</span>
+          <strong>Transformateur</strong>
+          <span>Essais et rendement.</span>
+        </a>
+        <a class="video-card" href="https://www.youtube.com/results?search_query=diode+redressement+cours+electronique+francais" target="_blank" rel="noopener">
+          <span class="video-tag mono">Module 06</span>
+          <strong>Diodes et redressement</strong>
+          <span>Simple et double alternance.</span>
+        </a>
+        <a class="video-card" href="https://www.youtube.com/results?search_query=transistor+bipolaire+cours+electronique+francais" target="_blank" rel="noopener">
+          <span class="video-tag mono">Module 06</span>
+          <strong>Transistors</strong>
+          <span>Montages amplificateurs.</span>
+        </a>
+        <a class="video-card" href="https://www.youtube.com/results?search_query=amplificateur+operationnel+cours+electronique+francais" target="_blank" rel="noopener">
+          <span class="video-tag mono">Module 07</span>
+          <strong>Amplificateurs opérationnels</strong>
+          <span>Contre-réaction et montages de base.</span>
+        </a>
+        <a class="video-card" href="https://www.youtube.com/results?search_query=filtres+passifs+rc+rl+rlc+cours+francais" target="_blank" rel="noopener">
+          <span class="video-tag mono">Module 08</span>
+          <strong>Filtres</strong>
+          <span>Passe-bas, passe-haut, passe-bande.</span>
+        </a>
+        <a class="video-card" href="https://www.youtube.com/results?search_query=familles+logiques+ttl+cmos+cours+francais" target="_blank" rel="noopener">
+          <span class="video-tag mono">Module 09</span>
+          <strong>Familles logiques</strong>
+          <span>TTL, CMOS, comparaison.</span>
+        </a>
+        <a class="video-card" href="https://www.youtube.com/results?search_query=convertisseur+dc+dc+buck+boost+cours+francais" target="_blank" rel="noopener">
+          <span class="video-tag mono">Module 10</span>
+          <strong>Convertisseurs DC-DC</strong>
+          <span>Buck, boost, buck-boost.</span>
+        </a>
+        <a class="video-card" href="https://www.youtube.com/results?search_query=ligne+transmission+impedance+adaptation+cours+francais" target="_blank" rel="noopener">
+          <span class="video-tag mono">Module 11</span>
+          <strong>Lignes de transmission</strong>
+          <span>Adaptation et ondes stationnaires.</span>
+        </a>
+      </div>
+    </section>
+
+  </article>
+
+</main>
+
+<footer class="site-foot">
+  <span>KODER · 2026</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="a-propos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </nav>
+</footer>
+
+<script src="js/ui/Effects.js" defer></script>
+<script src="js/ui/theme.js" defer></script>
+<script src="js/ui/CookieBanner.js" defer></script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{
+  "module": "dc",
+  "titre": "Circuits électriques en courant continu",
+  "tp": [
+    {
+      "id": "dc-1", "numero": 1, "titre": "Loi d'Ohm", "duree": 20, "difficulte": "facile",
+      "objectif": "Vérifier expérimentalement la relation U = R × I.",
+      "prerequis": ["Notion de tension", "Notion de courant"],
+      "materiel": ["Pile 9 V", "Résistance 100 Ω", "Ampèremètre", "Voltmètre"],
+      "theorie": "La loi d'Ohm établit U = R × I.",
+      "procedure": ["Placer une pile de 9 V", "Ajouter une résistance de 100 Ω", "Fermer le circuit", "Mesurer I et U", "Vérifier U = R × I"],
+      "questions": [
+        { "q": "Tension mesurée ?", "reponse": "9 V" },
+        { "q": "Courant mesuré ?", "reponse": "0.09 A" },
+        { "q": "Vérifier U / R = I ?", "reponse": "9/100 = 0.09 A ✓" },
+        { "q": "Puissance dissipée ?", "reponse": "P = 0.81 W" }
+      ],
+      "conclusion": "La loi d'Ohm est vérifiée."
+    },
+    {
+      "id": "dc-2", "numero": 2, "titre": "Circuit série", "duree": 30, "difficulte": "moyen",
+      "objectif": "Déterminer la résistance équivalente et vérifier la répartition des tensions.",
+      "prerequis": ["Loi d'Ohm"],
+      "materiel": ["Pile 12 V", "2 résistances (100Ω, 200Ω)"],
+      "theorie": "En série, R_eq = R1 + R2.",
+      "procedure": ["Placer la pile", "Ajouter les 2 résistances", "Fermer le circuit", "Mesurer I et U1, U2"],
+      "questions": [
+        { "q": "R_eq ?", "reponse": "300 Ω" },
+        { "q": "Courant ?", "reponse": "0.04 A" },
+        { "q": "U aux bornes de R1 ?", "reponse": "4 V" },
+        { "q": "U aux bornes de R2 ?", "reponse": "8 V" }
+      ],
+      "conclusion": "La tension se répartit proportionnellement."
+    },
+    {
+      "id": "dc-3", "numero": 3, "titre": "Circuit parallèle", "duree": 30, "difficulte": "moyen",
+      "objectif": "Vérifier la loi des nœuds.",
+      "prerequis": ["Loi d'Ohm"],
+      "materiel": ["Pile 12 V", "2 résistances de 100 Ω"],
+      "theorie": "1/R_eq = 1/R1 + 1/R2.",
+      "procedure": ["Placer la pile", "Ajouter les 2 résistances en parallèle", "Mesurer I_total et I1, I2"],
+      "questions": [
+        { "q": "R_eq ?", "reponse": "50 Ω" },
+        { "q": "I_total ?", "reponse": "0.24 A" },
+        { "q": "I dans chaque branche ?", "reponse": "0.12 A" }
+      ],
+      "conclusion": "La loi des nœuds est vérifiée."
+    },
+    {
+      "id": "dc-4", "numero": 4, "titre": "Lois de Kirchhoff", "duree": 45, "difficulte": "difficile",
+      "objectif": "Appliquer KCL et KVL.",
+      "prerequis": ["Circuits série et parallèle"],
+      "materiel": ["2 piles", "3 résistances"],
+      "theorie": "KCL : Σ I = 0. KVL : Σ U = 0.",
+      "procedure": ["Construire un circuit à 2 mailles", "Écrire les équations", "Résoudre le système"],
+      "questions": [
+        { "q": "Équation du nœud A ?", "reponse": "I1 = I2 + I3" },
+        { "q": "Équation maille 1 ?", "reponse": "9 - 100×I1 - 200×I2 = 0" },
+        { "q": "Équation maille 2 ?", "reponse": "-6 + 200×I2 - 300×I3 = 0" }
+      ],
+      "conclusion": "Les lois de Kirchhoff résolvent tout circuit."
+    },
+    {
+      "id": "dc-5", "numero": 5, "titre": "Théorème de Thévenin", "duree": 45, "difficulte": "difficile",
+      "objectif": "Simplifier un circuit en modèle équivalent.",
+      "prerequis": ["Lois de Kirchhoff"],
+      "materiel": ["1 pile 12 V", "3 résistances"],
+      "theorie": "U_Th et R_Th équivalents.",
+      "procedure": ["Construire le circuit", "Mesurer U_AB à vide", "Éteindre la source et mesurer R_AB", "Construire le modèle équivalent"],
+      "questions": [
+        { "q": "U_Th ?", "reponse": "U × R2/(R1+R2)" },
+        { "q": "R_Th ?", "reponse": "R1 // R2 + R3" }
+      ],
+      "conclusion": "Le théorème simplifie les circuits complexes."
+    }
+  ]
+}

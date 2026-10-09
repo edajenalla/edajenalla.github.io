@@ -1,0 +1,19 @@
+.err-shell {
+  min-height: 100vh;
+  padding: 0 var(--pad-x);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 900px;
+}
+
+.err-shell h1 {
+  margin: 1rem 0 2rem;
+}
+
+.err-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}

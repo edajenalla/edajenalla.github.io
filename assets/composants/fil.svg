@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 20" width="60" height="20">
+  <defs>
+    <filter id="wireGlow">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <path d="M 5 10 Q 15 5 30 10 T 55 10" fill="none" stroke="#3b82f6" stroke-width="4" stroke-linecap="round" filter="url(#wireGlow)"/>
+  <circle cx="5" cy="10" r="3" fill="#3b82f6"/>
+  <circle cx="55" cy="10" r="3" fill="#3b82f6"/>
+</svg>

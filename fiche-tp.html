@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fiche de TP · Laboratoire virtuel</title>
+<link rel="stylesheet" href="css/theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<style>
+  body {
+    background: #ffffff;
+    color: #0a0a0f;
+    font-family: 'Instrument Sans', system-ui, sans-serif;
+    padding: 3rem 2rem;
+    line-height: 1.6;
+  }
+  .fiche {
+    max-width: 780px;
+    margin: 0 auto;
+  }
+  .fiche-header {
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #0a0a0f;
+    margin-bottom: 2rem;
+  }
+  .fiche-header p:first-child {
+    font-family: 'Azeret Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #55555f;
+    margin-bottom: 0.5rem;
+  }
+  .fiche-header h1 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .fiche-header p:last-child {
+    font-size: 0.9rem;
+    color: #55555f;
+  }
+  .fiche h2 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 2rem 0 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #d0d0d5;
+  }
+  .fiche p { font-size: 0.95rem; margin-bottom: 0.75rem; }
+  .fiche ul, .fiche ol { padding-left: 1.25rem; margin-bottom: 1rem; }
+  .fiche li { margin-bottom: 0.5rem; font-size: 0.95rem; }
+  .fiche .formule {
+    font-family: 'Azeret Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1e40ff;
+    background: #f0f4ff;
+    padding: 0.85rem 1.1rem;
+    margin: 0.75rem 0;
+    border-left: 3px solid #1e40ff;
+    display: inline-block;
+  }
+  .fiche-footer {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #d0d0d5;
+    font-size: 0.8rem;
+    color: #55555f;
+    display: flex;
+    justify-content: space-between;
+  }
+  .print-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: #1e40ff;
+    color: #ffffff;
+    border: none;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-bottom: 2rem;
+  }
+  .print-btn:hover { background: #2563eb; }
+  @media print {
+    .print-btn { display: none; }
+    body { padding: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="fiche">
+  <button class="print-btn" onclick="window.print()">Imprimer ou enregistrer en PDF</button>
+  <div id="contenu"></div>
+</div>
+
+<script>
+const fiches = {
+  'dc-1': {
+    module: 'Courant continu',
+    titre: 'Loi d\'Ohm',
+    duree: '20 minutes',
+    objectifs: [
+      'Vérifier la proportionnalité entre tension et courant',
+      'Calculer la résistance à partir des mesures',
+      'Comparer valeur calculée et valeur nominale'
+    ],
+    theorie: 'Pour une résistance donnée, la tension et le courant sont liés par la loi d\'Ohm. Le rapport U / I reste constant et vaut exactement la valeur de la résistance.',
+    formule: 'R = U / I',
+    procedure: [
+      'Placer une pile de 9 V sur la plaque',
+      'Ajouter une résistance de 100 Ω',
+      'Relier les bornes de la pile et de la résistance',
+      'Placer un ampèremètre en série',
+      'Placer un voltmètre en parallèle',
+      'Lancer la simulation et relever U et I',
+      'Calculer R = U / I'
+    ],
+    attendu: 'Avec une pile de 9 V et une résistance de 100 Ω, le courant vaut 0,090 A et la puissance 0,81 W.'
+  },
+  'dc-2': {
+    module: 'Courant continu',
+    titre: 'Circuit série',
+    duree: '30 minutes',
+    objectifs: ['Calculer la résistance équivalente', 'Vérifier la répartition des tensions', 'Appliquer la loi des mailles'],
+    theorie: 'Le courant qui traverse deux résistances en série est le même. La résistance équivalente est la somme des résistances individuelles.',
+    formule: 'R_eq = R₁ + R₂',
+    procedure: ['Placer une pile de 12 V', 'Ajouter 100 Ω et 200 Ω', 'Les relier en série', 'Mesurer le courant et les tensions', 'Vérifier U₁ + U₂ = 12 V'],
+    attendu: 'R_eq = 300 Ω, I = 0,040 A, U₁ = 4 V, U₂ = 8 V.'
+  },
+  'dc-3': {
+    module: 'Courant continu',
+    titre: 'Circuit parallèle',
+    duree: '30 minutes',
+    objectifs: ['Calculer la résistance équivalente', 'Vérifier la loi des nœuds', 'Comparer avec un montage série'],
+    theorie: 'En parallèle, les résistances ont la même tension. La résistance équivalente est plus petite que la plus petite des deux.',
+    formule: '1 / R_eq = 1 / R₁ + 1 / R₂',
+    procedure: ['Placer une pile de 12 V', 'Ajouter deux résistances de 100 Ω', 'Les relier en parallèle', 'Mesurer chaque courant', 'Vérifier I = I₁ + I₂'],
+    attendu: 'R_eq = 50 Ω, I₁ = I₂ = 0,120 A, I_total = 0,240 A.'
+  },
+  'dc-4': {
+    module: 'Courant continu',
+    titre: 'Lois de Kirchhoff',
+    duree: '45 minutes',
+    objectifs: ['Écrire les équations aux nœuds et mailles', 'Résoudre un système à trois inconnues', 'Vérifier par la simulation'],
+    theorie: 'À chaque nœud, la somme des courants entrants égale la somme des sortants. Sur chaque maille, la somme des tensions est nulle.',
+    formule: 'Σ I = 0  ·  Σ U = 0',
+    procedure: ['Placer deux piles (9 V et 6 V)', 'Ajouter trois résistances', 'Former deux mailles', 'Écrire les équations', 'Résoudre le système', 'Vérifier'],
+    attendu: 'Système à trois inconnues I₁, I₂, I₃ avec I₁ + I₂ = I₃.'
+  },
+  'dc-5': {
+    module: 'Courant continu',
+    titre: 'Théorème de Thévenin',
+    duree: '45 minutes',
+    objectifs: ['Déterminer U_Th et R_Th', 'Construire le modèle équivalent', 'Vérifier l\'équivalence'],
+    theorie: 'Tout circuit linéaire vu de deux bornes peut être remplacé par une source U_Th en série avec une résistance R_Th.',
+    formule: 'U_Th = U × R₂ / (R₁ + R₂)',
+    procedure: ['Placer une pile de 12 V', 'Former un diviseur de tension', 'Identifier les bornes A et B', 'Mesurer U_AB à vide', 'Déterminer R_Th', 'Construire le modèle'],
+    attendu: 'U_Th = 6 V, R_Th = 500 Ω pour R₁ = R₂ = 1 kΩ.'
+  },
+  'ac-1': {
+    module: 'Courant alternatif',
+    titre: 'Circuit RL série',
+    duree: '40 minutes',
+    objectifs: ['Calculer l\'impédance', 'Mesurer le déphasage', 'Comparer mesure et calcul'],
+    theorie: 'L\'impédance complexe s\'écrit Z = R + jX_L. Le courant est en retard sur la tension.',
+    formule: '|Z| = √(R² + X_L²)  ·  φ = arctan(X_L / R)',
+    procedure: ['Placer une source AC de 230 V', 'Ajouter 100 Ω et 0,1 H', 'Relier en série', 'Mesurer le déphasage', 'Comparer'],
+    attendu: 'X_L = 31,4 Ω, |Z| = 104,8 Ω, I = 2,19 A, φ = 17,4°.'
+  },
+  'ac-2': {
+    module: 'Courant alternatif',
+    titre: 'Circuit RC série',
+    duree: '40 minutes',
+    objectifs: ['Calculer la réactance capacitive', 'Mesurer le déphasage', 'Comparer'],
+    theorie: 'L\'impédance s\'écrit Z = R − jX_C. Le courant est en avance sur la tension.',
+    formule: 'φ = −arctan(X_C / R)',
+    procedure: ['Placer une source AC', 'Ajouter 100 Ω et 10 µF', 'Relier en série', 'Observer l\'oscilloscope', 'Mesurer le déphasage'],
+    attendu: 'X_C = 318 Ω, |Z| = 334 Ω, I = 0,69 A, φ = −72,6°.'
+  },
+  'ac-3': {
+    module: 'Courant alternatif',
+    titre: 'Résonance RLC',
+    duree: '50 minutes',
+    objectifs: ['Calculer f₀', 'Déterminer Q', 'Observer la courbe de courant'],
+    theorie: 'À la résonance, X_L = X_C et l\'impédance redevient purement résistive.',
+    formule: 'f₀ = 1 / (2π√(L × C))',
+    procedure: ['Placer une source variable', 'Ajouter R, L, C en série', 'Varier la fréquence', 'Identifier le maximum de courant'],
+    attendu: 'f₀ = 159 Hz, Q = 3,16, bande passante de 50 Hz.'
+  },
+  'ac-4': {
+    module: 'Courant alternatif',
+    titre: 'Puissances en régime AC',
+    duree: '50 minutes',
+    objectifs: ['Calculer P, Q, S', 'Vérifier S² = P² + Q²', 'Déterminer cos φ'],
+    theorie: 'Trois puissances coexistent. La relation entre elles forme le triangle des puissances.',
+    formule: 'S² = P² + Q²',
+    procedure: ['Construire un circuit RL', 'Mesurer U, I et φ', 'Calculer P, Q et S', 'Vérifier la relation'],
+    attendu: 'P = 480 W, Q = 158 VAR, S = 504 VA, cos φ = 0,954.'
+  },
+  'tri-1': {
+    module: 'Systèmes triphasés',
+    titre: 'Découverte du triphasé',
+    duree: '30 minutes',
+    objectifs: ['Visualiser les trois tensions', 'Mesurer V et U', 'Vérifier U = √3 × V'],
+    theorie: 'Les trois tensions forment un système équilibré. Leur somme instantanée est nulle.',
+    formule: 'v₁ + v₂ + v₃ = 0',
+    procedure: ['Placer une source triphasée', 'Connecter en étoile', 'Visualiser les trois tensions', 'Mesurer les tensions'],
+    attendu: 'V = 230 V, U = 400 V.'
+  },
+  'tri-2': {
+    module: 'Systèmes triphasés',
+    titre: 'Couplage étoile',
+    duree: '40 minutes',
+    objectifs: ['Vérifier I = J', 'Mesurer les tensions', 'Comparer avec triangle'],
+    theorie: 'Chaque récepteur est branché entre une phase et le neutre.',
+    formule: 'I_ligne = I_phase',
+    procedure: ['Connecter trois résistances en étoile', 'Insérer des ampèremètres', 'Comparer les courants'],
+    attendu: 'Les courants de ligne et de phase sont identiques.'
+  },
+  'tri-3': {
+    module: 'Systèmes triphasés',
+    titre: 'Couplage triangle',
+    duree: '40 minutes',
+    objectifs: ['Vérifier I = √3 × J', 'Comprendre la différence', 'Observer l\'absence de neutre'],
+    theorie: 'Chaque récepteur est branché entre deux phases.',
+    formule: 'I_ligne = √3 × J_phase',
+    procedure: ['Connecter trois résistances en triangle', 'Mesurer courants de ligne et de phase', 'Vérifier le rapport'],
+    attendu: 'Le rapport vaut 1,732.'
+  },
+  'transfo-1': {
+    module: 'Transformateur',
+    titre: 'Essai à vide',
+    duree: '40 minutes',
+    objectifs: ['Déterminer m', 'Mesurer P₀', 'Vérifier le faible courant à vide'],
+    theorie: 'Le secondaire est ouvert. La puissance absorbée correspond aux pertes fer.',
+    formule: 'm = U₂ / U₁',
+    procedure: ['Alimenter le primaire', 'Laisser le secondaire ouvert', 'Mesurer U₁, U₂, P₀', 'Calculer m'],
+    attendu: 'm = 0,104 pour 230 V / 24 V.'
+  },
+  'transfo-2': {
+    module: 'Transformateur',
+    titre: 'Essai en court-circuit',
+    duree: '40 minutes',
+    objectifs: ['Mesurer P_cc', 'Déterminer R_s et X_s', 'Compléter le modèle'],
+    theorie: 'Le secondaire est en court-circuit. La puissance correspond aux pertes cuivre.',
+    formule: 'R_s = P_cc / I_cc²',
+    procedure: ['Court-circuiter le secondaire', 'Alimenter sous tension réduite', 'Ajuster au courant nominal', 'Mesurer'],
+    attendu: 'U_cc vaut 5 à 10 pour cent de U_nominale.'
+  },
+  'transfo-3': {
+    module: 'Transformateur',
+    titre: 'Rendement',
+    duree: '30 minutes',
+    objectifs: ['Calculer η', 'Identifier le maximum', 'Comprendre l\'égalité des pertes'],
+    theorie: 'Les pertes fer sont constantes, les pertes cuivre varient avec le courant.',
+    formule: 'η_max quand P_fer = P_cuivre',
+    procedure: ['Relever P₀ et P_cc', 'Faire varier la charge', 'Calculer η', 'Tracer la courbe'],
+    attendu: 'Rendement maximal de 96 à 98 pour cent.'
+  }
+};
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get('tp') || 'dc-1';
+const f = fiches[id];
+
+if (f) {
+  document.getElementById('contenu').innerHTML =
+    '<div class="fiche-header">' +
+      '<p>Fiche de travaux pratiques · ' + f.module + '</p>' +
+      '<h1>' + f.titre + '</h1>' +
+      '<p>Durée estimée : ' + f.duree + '</p>' +
+    '</div>' +
+    '<h2>Objectifs</h2>' +
+    '<ul>' + f.objectifs.map(o => '<li>' + o + '</li>').join('') + '</ul>' +
+    '<h2>Théorie</h2>' +
+    '<p>' + f.theorie + '</p>' +
+    '<div class="formule">' + f.formule + '</div>' +
+    '<h2>Procédure</h2>' +
+    '<ol>' + f.procedure.map(p => '<li>' + p + '</li>').join('') + '</ol>' +
+    '<h2>Résultats attendus</h2>' +
+    '<p>' + f.attendu + '</p>' +
+    '<div class="fiche-footer">' +
+      '<span>Laboratoire virtuel d\'électrotechnique</span>' +
+      '<span>ENSET Antsiranana · 2025</span>' +
+    '</div>';
+} else {
+  document.getElementById('contenu').innerHTML = '<p>Fiche introuvable.</p>';
+}
+</script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>
