@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Courant continu · Laboratoire virtuel</title>
+<meta name="description" content="Cinq TP sur les circuits en courant continu : loi d'Ohm, Kirchhoff, Thévenin.">
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="css/module.css">
+<link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/instrumentsans/v4/pximys0itdpkzchkngyrjw.woff2" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="simulateur.html">Simulateur</a>
+    <a href="modules.html" aria-current="page">Modules</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="guide.html">Guide</a>
+  </nav>
+</header>
+
+<main>
+
+<div class="shell crumbs mono">
+  <a href="modules.html">Modules</a><span>/</span><span>Courant conti</span>
+</div>
+
+<section class="shell module-hero">
+  <p class="eyebrow">Module 01</p>
+  <h1 class="display display-xl">Courant<br>continu</h1>
+  <p class="lead">
+    Le courant circule dans un seul sens, du plus vers le moins. Les lois
+    sont simples, les calculs se vérifient à la main, et chaque résultat
+    peut être mesuré directement dans le simulateur.
+  </p>
+  <div class="hero-actions">
+    <a href="simulateur.html" class="btn btn-primary">Ouvrir le simulateur</a>
+    <a href="quiz.html?module=dc" class="btn btn-ghost">Passer le quiz</a>
+  </div>
+</section>
+
+<section class="shell">
+  <h2 class="display display-md section-heading">Ce qu'il faut savoir avant</h2>
+
+  <div class="concept-grid">
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">01</span>
+        <h3 class="concept-name">Loi d'Ohm</h3>
+      </div>
+      <div class="concept-formula">U = R × I</div>
+      <div class="concept-explanation">
+        <p>
+          La tension <strong>U</strong> aux bornes d'un conducteur ohmique
+          est proportionnelle au courant <strong>I</strong> qui le traverse.
+          Le coefficient de proportionnalité est la résistance
+          <strong>R</strong>.
+        </p>
+        <p>
+          Concrètement : si tu doubles la tension, tu doubles le courant.
+          Si tu doubles la résistance, tu divises le courant par deux. La
+          relation s'écrit aussi I = U / R ou R = U / I.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          Georg Simon Ohm publie en 1827 un traité où il établit cette
+          relation expérimentale. Ses contemporains accueillent le travail
+          avec indifférence, et il attend quatorze ans avant de recevoir la
+          médaille Copley de la Royal Society. L'unité de résistance porte
+          aujourd'hui son nom.
+        </p>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">02</span>
+        <h3 class="concept-name">Loi des nœuds</h3>
+      </div>
+      <div class="concept-formula">Σ I entrant = Σ I sortant</div>
+      <div class="concept-explanation">
+        <p>
+          À chaque point de connexion d'un circuit, la somme des courants qui
+          arrivent est égale à la somme des courants qui repartent.
+        </p>
+        <p>
+          Aucune charge ne s'accumule dans un fil. Ce qui entre ressort
+          forcément. C'est une conséquence directe de la conservation de la
+          charge électrique.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          Gustav Kirchhoff énonce cette loi en 1845, à vingt-et-un ans,
+          alors qu'il est encore étudiant à Königsberg. Il formule le même
+          jour la loi des mailles. Les deux portent aujourd'hui son nom.
+        </p>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">03</span>
+        <h3 class="concept-name">Loi des mailles</h3>
+      </div>
+      <div class="concept-formula">Σ U = 0</div>
+      <div class="concept-explanation">
+        <p>
+          Le long d'une maille fermée, la somme algébrique des tensions est
+          nulle. On compte positivement celles qu'on traverse dans le sens
+          du courant, négativement les autres.
+        </p>
+        <p>
+          Autrement dit : ce que la source fournit, les récepteurs le
+          consomment entièrement. Rien ne se perd.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          Même publication que la loi des nœuds, même année. Kirchhoff
+          travaille alors sur la conduction électrique dans les réseaux
+          complexes, et cherche une méthode générale pour les résoudre. Ces
+          deux lois lui donnent la réponse.
+        </p>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">04</span>
+        <h3 class="concept-name">Théorème de Thévenin</h3>
+      </div>
+      <div class="concept-formula">U = U_Th − R_Th × I</div>
+      <div class="concept-explanation">
+        <p>
+          N'importe quel circuit linéaire, vu depuis deux bornes, peut être
+          remplacé par une seule source de tension <strong>U_Th</strong> en
+          série avec une seule résistance <strong>R_Th</strong>.
+        </p>
+        <p>
+          U_Th est la tension mesurée à vide entre les deux bornes. R_Th est
+          la résistance mesurée entre ces bornes quand toutes les sources
+          sont éteintes.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          Léon Charles Thévenin, ingénieur des télégraphes français, publie
+          ce théorème en 1883. Il cherchait à simplifier l'analyse des lignes
+          télégraphiques, dont les équations devenaient ingérables dès qu'on
+          ajoutait un récepteur.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="shell">
+
+  <h2 class="display display-md section-heading">Travaux pratiques</h2>
+
+  <ol class="tp-index">
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">01</span>
+        <span class="tp-name display display-md">Loi d'Ohm</span>
+        <span class="tp-time mono">20 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            Ce premier travail consiste à mesurer la relation entre la
+            tension appliquée à une résistance et le courant qui la
+            traverse. On utilise une pile de 9 V, une résistance de 100 Ω,
+            un ampèremètre et un voltmètre.
+          </p>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Vérifier expérimentalement la proportionnalité entre U et I</li>
+            <li>Calculer la résistance à partir des mesures</li>
+            <li>Comparer la valeur calculée et la valeur nominale</li>
+          </ul>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            Pour une résistance donnée, la tension et le courant sont liés
+            par la loi d'Ohm. Le rapport U / I reste constant, et ce
+            rapport vaut exactement la valeur de la résistance.
+          </p>
+          <div class="tp-formula">R = U / I</div>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Placer une pile de 9 V sur la plaque</li>
+            <li>Ajouter une résistance de 100 Ω</li>
+            <li>Relier les bornes de la pile et de la résistance</li>
+            <li>Placer un ampèremètre en série dans le circuit</li>
+            <li>Placer un voltmètre en parallèle aux bornes de la résistance</li>
+            <li>Lancer la simulation et relever U et I</li>
+            <li>Calculer R = U / I et comparer avec 100 Ω</li>
+          </ol>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            Avec une pile de 9 V et une résistance de 100 Ω, le courant
+            mesuré doit valoir 0,090 A, soit 90 mA. La puissance dissipée
+            vaut alors 0,81 W. Si tu obtiens une autre valeur, vérifie que
+            la résistance est bien à 100 Ω dans le panneau de sélection.
+          </p>
+        </div>
+
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>
+            Un circuit complet est déjà préparé. Ouvre-le dans le simulateur
+            et clique directement sur Simuler pour voir le résultat.
+          </p>
+          <a href="simulateur.html?example=dc-ohm" class="btn btn-primary btn-load-example">
+            Charger l'exemple
+          </a>
+        </div>
+
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=dc-1" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=loi+d+ohm+cours+physique+francais" target="_blank" rel="noopener" class="btn btn-ghost">
+            Voir une vidéo
+          </a>
+        </div>
+
+      </div>
+    </li>
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">02</span>
+        <span class="tp-name display display-md">Circuit série</span>
+        <span class="tp-time mono">30 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            Dans un circuit série, les composants sont alignés les uns après
+            les autres, formant un chemin unique pour le courant. On
+            étudie comment la tension se répartit et comment les résistances
+            s'additionnent.
+          </p>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Calculer la résistance équivalente de plusieurs résistances en série</li>
+            <li>Vérifier que la tension se répartit proportionnellement</li>
+            <li>Appliquer la loi des mailles</li>
+          </ul>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            Le courant qui traverse deux résistances en série est le même. La
+            résistance équivalente est la somme des valeurs individuelles.
+          </p>
+          <div class="tp-formula">R_eq = R₁ + R₂ + ... + R_n</div>
+          <p>
+            La tension fournie par la pile se répartit au prorata des
+            résistances. Une résistance deux fois plus grande aura deux fois
+            plus de tension à ses bornes.
+          </p>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Placer une pile de 12 V</li>
+            <li>Ajouter une résistance de 100 Ω et une de 200 Ω</li>
+            <li>Les relier en série avec la pile</li>
+            <li>Placer un ampèremètre dans le circuit principal</li>
+            <li>Mesurer la tension aux bornes de chaque résistance</li>
+            <li>Vérifier que U₁ + U₂ = 12 V</li>
+          </ol>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            La résistance équivalente vaut 300 Ω. Le courant mesure 0,040 A.
+            La tension aux bornes de la première résistance est de 4 V,
+            celle aux bornes de la seconde de 8 V. Leur somme fait bien
+            12 V.
+          </p>
+        </div>
+
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>
+            Deux résistances en série avec une pile de 12 V, déjà câblées.
+          </p>
+          <a href="simulateur.html?example=dc-serie" class="btn btn-primary btn-load-example">
+            Charger l'exemple
+          </a>
+        </div>
+
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=dc-2" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=circuit+serie+parallele+cours+francais" target="_blank" rel="noopener" class="btn btn-ghost">
+            Voir une vidéo
+          </a>
+        </div>
+
+      </div>
+    </li>
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">03</span>
+        <span class="tp-name display display-md">Circuit parallèle</span>
+        <span class="tp-time mono">30 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            Dans un circuit parallèle, les composants sont branchés côte à
+            côte, entre les mêmes deux points. Le courant peut emprunter
+            plusieurs chemins. On étudie comment le courant se répartit.
+          </p>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Calculer la résistance équivalente de deux résistances en parallèle</li>
+            <li>Vérifier la loi des nœuds</li>
+            <li>Comparer avec un montage série</li>
+          </ul>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            En parallèle, les deux résistances ont la même tension à leurs
+            bornes. La résistance équivalente est plus petite que la plus
+            petite des deux.
+          </p>
+          <div class="tp-formula">1 / R_eq = 1 / R₁ + 1 / R₂</div>
+          <p>
+            Pour deux résistances identiques, elle vaut la moitié de
+            chacune. Le courant total est la somme des courants dans chaque
+            branche.
+          </p>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Placer une pile de 12 V</li>
+            <li>Ajouter deux résistances de 100 Ω</li>
+            <li>Les relier en parallèle entre les bornes de la pile</li>
+            <li>Mesurer le courant dans chaque branche</li>
+            <li>Mesurer le courant total dans la branche principale</li>
+            <li>Vérifier que I_total = I₁ + I₂</li>
+          </ol>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            La résistance équivalente vaut 50 Ω. Chaque branche est parcourue
+            par un courant de 0,120 A. Le courant total vaut 0,240 A. La
+            tension aux bornes des deux résistances est la même, 12 V.
+          </p>
+        </div>
+
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>
+            Deux résistances en parallèle avec une pile de 12 V, déjà
+            câblées.
+          </p>
+          <a href="simulateur.html?example=dc-parallele" class="btn btn-primary btn-load-example">
+            Charger l'exemple
+          </a>
+        </div>
+
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=dc-3" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=circuit+parallele+cours+francais" target="_blank" rel="noopener" class="btn btn-ghost">
+            Voir une vidéo
+          </a>
+        </div>
+
+      </div>
+    </li>
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">04</span>
+        <span class="tp-name display display-md">Lois de Kirchhoff</span>
+        <span class="tp-time mono">45 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            Les deux lois de Kirchhoff permettent de résoudre n'importe quel
+            circuit, aussi compliqué soit-il. On les applique ici à un
+            circuit à deux mailles, alimenté par deux sources.
+          </p>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Écrire les équations aux nœuds et aux mailles</li>
+            <li>Résoudre un système linéaire à trois inconnues</li>
+            <li>Vérifier les résultats par la simulation</li>
+          </ul>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            À chaque nœud, la somme des courants entrants égale la somme des
+            courants sortants. Sur chaque maille, la somme des tensions est
+            nulle. Ces deux règles donnent un système d'équations linéaires
+            qu'on résout par substitution ou par la méthode de Gauss.
+          </p>
+          <div class="tp-formula">Σ I = 0  ·  Σ U = 0</div>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Placer deux piles (9 V et 6 V)</li>
+            <li>Ajouter trois résistances (100 Ω, 200 Ω, 300 Ω)</li>
+            <li>Former deux mailles avec un nœud commun</li>
+            <li>Écrire l'équation au nœud commun</li>
+            <li>Écrire l'équation sur chaque maille</li>
+            <li>Résoudre le système par substitution</li>
+            <li>Vérifier les courants avec le simulateur</li>
+          </ol>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            Le système a trois inconnues : I₁, I₂, I₃. On trouve I₁ = 0,048 A,
+            I₂ = 0,017 A, I₃ = 0,065 A. La somme I₁ + I₂ = I₃ est bien
+            vérifiée.
+          </p>
+        </div>
+
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>
+            Deux mailles, deux sources, trois résistances. Le circuit est
+            prêt à être simulé.
+          </p>
+          <a href="simulateur.html?example=dc-kirchhoff" class="btn btn-primary btn-load-example">
+            Charger l'exemple
+          </a>
+        </div>
+
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=dc-4" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=lois+de+kirchhoff+cours+francais" target="_blank" rel="noopener" class="btn btn-ghost">
+            Voir une vidéo
+          </a>
+        </div>
+
+      </div>
+    </li>
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">05</span>
+        <span class="tp-name display display-md">Théorème de Thévenin</span>
+        <span class="tp-time mono">45 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            Un circuit complexe peut souvent se réduire à une source et une
+            résistance. C'est ce que propose le théorème de Thévenin. On
+            l'applique ici à un pont diviseur chargé.
+          </p>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Déterminer les paramètres U_Th et R_Th</li>
+            <li>Construire le modèle équivalent</li>
+            <li>Vérifier l'équivalence par la mesure</li>
+          </ul>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            U_Th est la tension mesurée entre les bornes A et B quand rien
+            n'y est branché. R_Th est la résistance vue entre ces bornes
+            quand on éteint toutes les sources : les sources de tension
+            deviennent des courts-circuits.
+          </p>
+          <div class="tp-formula">U_Th = U × R₂ / (R₁ + R₂)</div>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Placer une pile de 12 V et trois résistances</li>
+            <li>Former un diviseur de tension avec R₁ et R₂</li>
+            <li>Identifier les bornes A et B de sortie</li>
+            <li>Mesurer la tension à vide U_AB</li>
+            <li>Déterminer R_Th en éteignant la source</li>
+            <li>Construire le modèle équivalent</li>
+            <li>Comparer les deux circuits sous charge</li>
+          </ol>
+        </div>
+
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            Avec R₁ = R₂ = 1 kΩ et une source de 12 V, la tension U_Th vaut
+            6 V. La résistance R_Th vaut 500 Ω (les deux résistances en
+            parallèle). Le modèle équivalent donne exactement les mêmes
+            résultats que le circuit d'origine sous n'importe quelle charge.
+          </p>
+        </div>
+
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>
+            Un diviseur de tension avec ses deux résistances de 1 kΩ et une
+            pile de 12 V.
+          </p>
+          <a href="simulateur.html?example=dc-thevenin" class="btn btn-primary btn-load-example">
+            Charger l'exemple
+          </a>
+        </div>
+
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=dc-5" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=theoreme+de+thevenin+cours+francais" target="_blank" rel="noopener" class="btn btn-ghost">
+            Voir une vidéo
+          </a>
+        </div>
+
+      </div>
+    </li>
+
+  </ol>
+</section>
+
+</main>
+
+<footer class="site-foot">
+ <span>KODER · 2026</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="a-propos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </nav>
+</footer>
+
+<script>
+document.querySelectorAll('.tp-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const d = btn.nextElementSibling;
+    const open = !d.hidden;
+    d.hidden = open;
+    btn.setAttribute('aria-expanded', String(!open));
+  });
+});
+</script>
+<script src="js/ui/Effects.js" defer></script>
+<script src="js/ui/theme.js"></script>
+<script src="js/ui/CookieBanner.js"></script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

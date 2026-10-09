@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cours · Laboratoire virtuel</title>
+<meta name="description" content="Fiche de cours détaillée : formule, explication, origine, schémas et vidéo.">
+<meta property="og:image" content="assets/images/hero-bulb.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="css/cours.css">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="simulateur.html">Simulateur</a>
+    <a href="modules.html">Modules</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="guide.html">Guide</a>
+  </nav>
+</header>
+
+<main class="cours-shell">
+
+  <div class="shell crumbs mono" id="crumbs">
+    <a href="modules.html">Modules</a>
+    <span>/</span>
+    <span id="crumbCat">…</span>
+    <span>/</span>
+    <span id="crumbTitre">…</span>
+  </div>
+
+  <article class="cours-article" id="coursContent">
+    <!-- Rempli par JS -->
+  </article>
+
+  <section class="cours-nav shell" id="coursNav">
+    <!-- Précédent / suivant remplis par JS -->
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <span>ENSET Antsiranana · 2025</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="a-propos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </nav>
+</footer>
+
+<script src="js/cours-data.js"></script>
+<script src="js/modules-data.js"></script>
+<script src="js/parcours-data.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+  if (!id || typeof COURS === 'undefined') {
+    document.getElementById('coursContent').innerHTML =
+      '<p style="padding:4rem 0;color:var(--text-dim);">Cours introuvable. <a href="modules.html">Retour aux modules</a>.</p>';
+    return;
+  }
+
+  const cours = COURS.find(c => c.id === id);
+  if (!cours) {
+    document.getElementById('coursContent').innerHTML =
+      '<p style="padding:4rem 0;color:var(--text-dim);">Cours introuvable. <a href="modules.html">Retour aux modules</a>.</p>';
+    return;
+  }
+
+  document.title = cours.titre + ' · Laboratoire virtuel';
+
+  /* Fil d'Ariane */
+  document.getElementById('crumbCat').textContent = cours.categorie;
+  document.getElementById('crumbTitre').textContent = cours.titre;
+
+  /* Contenu principal */
+  const html =
+    '<header class="cours-hero">' +
+      '<p class="eyebrow">Cours ' + cours.numero + ' · ' + cours.categorie + '</p>' +
+      '<h1 class="display display-xl">' + cours.titre + '</h1>' +
+      '<p class="lead">' + cours.chapeau + '</p>' +
+      '<ul class="cours-meta">' +
+        '<li><span class="mono">Durée</span><strong>' + cours.duree + '</strong></li>' +
+        '<li><span class="mono">Catégorie</span><strong>' + cours.categorie + '</strong></li>' +
+      '</ul>' +
+    '</header>' +
+
+    '<section class="cours-block">' +
+      '<h2 class="cours-block-title">Formule</h2>' +
+      '<div class="cours-formule-big">' + cours.formule + '</div>' +
+      '<p class="cours-note">' + cours.formuleNote + '</p>' +
+    '</section>' +
+
+    '<section class="cours-block">' +
+      '<h2 class="cours-block-title">Explication</h2>' +
+      cours.explication.map(p => '<p>' + p + '</p>').join('') +
+    '</section>' +
+
+    '<section class="cours-block">' +
+      '<h2 class="cours-block-title">Origine</h2>' +
+      '<div class="cours-origine">' +
+        '<span class="cours-origine-label">' + cours.origine.label + '</span>' +
+        '<p class="cours-origine-text">' + cours.origine.texte + '</p>' +
+      '</div>' +
+    '</section>' +
+
+    '<section class="cours-block">' +
+      '<h2 class="cours-block-title">Points clés</h2>' +
+      '<ul class="cours-points">' +
+        cours.points.map(p => '<li>' + p + '</li>').join('') +
+      '</ul>' +
+    '</section>' +
+
+    '<section class="cours-block">' +
+      '<h2 class="cours-block-title">Schémas et formules</h2>' +
+      '<div class="cours-schemas">' +
+        cours.schemas.map(s =>
+          '<div class="cours-schema">' +
+            '<h3 class="cours-schema-titre">' + s.titre + '</h3>' +
+            '<div class="cours-schema-formule">' + s.formule + '</div>' +
+            '<p class="cours-schema-desc">' + s.description + '</p>' +
+          '</div>'
+        ).join('') +
+      '</div>' +
+    '</section>' +
+
+    '<section class="cours-block">' +
+      '<h2 class="cours-block-title">Pour aller plus loin</h2>' +
+      '<div class="cours-actions">' +
+        '<a href="' + cours.video + '" target="_blank" rel="noopener" class="btn btn-primary">Voir une vidéo</a>' +
+        '<a href="simulateur.html" class="btn btn-ghost">Ouvrir le simulateur</a>' +
+      '</div>' +
+    '</section>';
+
+  document.getElementById('coursContent').innerHTML = html;
+
+  /* Navigation précédent / suivant dans la même catégorie */
+  const dansCat = COURS.filter(c => c.categorie === cours.categorie);
+  const idx = dansCat.findIndex(c => c.id === cours.id);
+  const prev = idx > 0 ? dansCat[idx - 1] : null;
+  const next = idx < dansCat.length - 1 ? dansCat[idx + 1] : null;
+
+  let navHtml = '';
+  if (prev) {
+    navHtml += '<a href="cours.html?id=' + prev.id + '" class="cours-nav-item prev">' +
+      '<span class="mono">← Précédent</span>' +
+      '<strong>' + prev.titre + '</strong>' +
+    '</a>';
+  } else {
+    navHtml += '<div></div>';
+  }
+  if (next) {
+    navHtml += '<a href="cours.html?id=' + next.id + '" class="cours-nav-item next">' +
+      '<span class="mono">Suivant →</span>' +
+      '<strong>' + next.titre + '</strong>' +
+    '</a>';
+  }
+  document.getElementById('coursNav').innerHTML = navHtml;
+});
+</script>
+
+<script src="js/ui/Effects.js" defer></script>
+<script src="js/ui/theme.js" defer></script>
+<script src="js/ui/CookieBanner.js" defer></script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

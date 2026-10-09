@@ -1,0 +1,381 @@
+/* ============================================================
+   EFFETS — arrière-plan animé, chargement, menu
+   ============================================================ */
+
+/* ============================================================
+   ARRIÈRE-PLAN ANIMÉ
+   Trois couches de halos qui dérivent lentement. CSS pur,
+   composited sur le GPU, aucun impact sur le CPU.
+   ============================================================ */
+
+.bg-animated {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--bg);
+}
+
+.bg-animated::before,
+.bg-animated::after {
+  content: '';
+  position: absolute;
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.bg-animated::before {
+  background: radial-gradient(circle, rgba(30, 64, 255, 0.6) 0%, transparent 70%);
+  top: -20vmax;
+  left: -20vmax;
+  animation: driftA 40s ease-in-out infinite;
+}
+
+.bg-animated::after {
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.4) 0%, transparent 70%);
+  bottom: -25vmax;
+  right: -20vmax;
+  animation: driftB 55s ease-in-out infinite;
+}
+
+/* Troisième halo, en HTML séparé pour varier */
+.bg-glow {
+  position: absolute;
+  width: 50vmax;
+  height: 50vmax;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.25;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.5) 0%, transparent 70%);
+  top: 40%;
+  left: 30%;
+  animation: driftC 70s ease-in-out infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  pointer-events: none;
+}
+
+@keyframes driftA {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(15vw, 8vh, 0) scale(1.1); }
+  66% { transform: translate3d(8vw, 15vh, 0) scale(0.95); }
+}
+
+@keyframes driftB {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  40% { transform: translate3d(-12vw, -10vh, 0) scale(1.15); }
+  70% { transform: translate3d(-5vw, -18vh, 0) scale(0.9); }
+}
+
+@keyframes driftC {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-20vw, 10vh, 0) scale(1.2); }
+}
+
+/* Réduction ou désactivation sur mobile et en mode réduit */
+@media (max-width: 768px) {
+  .bg-animated::before,
+  .bg-animated::after { filter: blur(50px); opacity: 0.25; }
+  .bg-glow { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-animated::before,
+  .bg-animated::after,
+  .bg-glow { animation: none; }
+}
+
+/* Thème clair : halos plus discrets */
+[data-theme="light"] .bg-animated::before { opacity: 0.12; }
+[data-theme="light"] .bg-animated::after { opacity: 0.10; }
+[data-theme="light"] .bg-glow { opacity: 0.06; }
+
+/* ============================================================
+   GRAIN SUBTIL (remplace celui de theme.css)
+   ============================================================ */
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  opacity: 0.035;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+[data-theme="light"] .grain-overlay { opacity: 0.012; }
+
+/* ============================================================
+   ÉCRAN DE CHARGEMENT
+   ============================================================ */
+
+.page-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.5rem;
+  transition: opacity 0.4s ease, visibility 0.4s;
+}
+
+.page-loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-mark {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.loader-mark em {
+  color: var(--blue);
+  font-style: normal;
+}
+
+.loader-bar {
+  width: 160px;
+  height: 2px;
+  background: var(--line);
+  overflow: hidden;
+  border-radius: 1px;
+  position: relative;
+}
+
+.loader-bar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  animation: loaderSlide 1.2s linear infinite;
+}
+
+@keyframes loaderSlide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.loader-text {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* ============================================================
+   BOUTON DE MENU
+   Visible quand la navigation est masquée ou mobile
+   ============================================================ */
+
+.menu-toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.menu-toggle:hover {
+  border-color: var(--line-strong);
+  background: var(--blue-soft);
+}
+
+.menu-toggle svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+
+.menu-toggle .icon-close { display: none; }
+.menu-toggle.open .icon-close { display: block; }
+.menu-toggle.open .icon-menu { display: none; }
+
+/* Sur mobile, on affiche le bouton */
+@media (max-width: 760px) {
+  .menu-toggle { display: flex; }
+}
+
+/* ============================================================
+   MENU DÉROULANT PLEIN ÉCRAN (mobile)
+   ============================================================ */
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem var(--pad-x);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.mobile-menu.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-menu nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+  transition: padding-left 0.2s, color 0.2s;
+}
+
+.mobile-menu a:hover {
+  padding-left: 1rem;
+  color: var(--blue);
+}
+
+.mobile-menu a[aria-current='page'] {
+  color: var(--blue);
+}
+
+.mobile-menu-footer {
+  position: absolute;
+  bottom: 2rem;
+  left: var(--pad-x);
+  right: var(--pad-x);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-faint);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   OPTIMISATIONS DE PERFORMANCE
+   ============================================================ */
+
+/* Éviter le repaint des sections hors écran */
+.section,
+.module-card,
+.concept-card,
+.tp-entry {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
+}
+
+/* Les transformations et opacités sont plus rapides que top/left */
+.module-card,
+.btn,
+.tp-toggle {
+  transform: translateZ(0);
+}
+
+/* Éviter les transitions coûteuses sur des propriétés géométriques */
+* {
+  transition-property: color, background-color, border-color, opacity, transform, box-shadow;
+}
+
+/* Images chargées en lazy */
+img { loading: lazy; }
+
+/* Optimisation du texte */
+body {
+  text-rendering: optimizeSpeed;
+}
+
+/* Réduire le travail de rendu du SVG */
+.sim-wires { shape-rendering: geometricPrecision; }
+
+/* ============================================================
+   MENTIONS LÉGALES — page
+   ============================================================ */
+
+.legal-page {
+  padding: calc(68px + 3rem) var(--pad-x) var(--section-y);
+  max-width: 780px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.legal-page section {
+  padding-bottom: 3rem;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.legal-page section:first-child { border-bottom: none; padding-bottom: 0; }
+.legal-page section:last-child { border-bottom: none; }
+
+.legal-page h2 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+
+.legal-page p {
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.legal-page dl > div {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 2rem;
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.95rem;
+}
+.legal-page dl > div:last-child { border-bottom: none; }
+
+.legal-page dt {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.legal-page dd { color: var(--text); }
+.legal-page a { color: var(--blue); }
+
+@media (max-width: 640px) {
+  .legal-page dl > div {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+}

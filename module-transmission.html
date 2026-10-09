@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Électronique fondamentale · Laboratoire virtuel</title>
+<meta name="description" content="Résistances, condensateurs, sources contrôlées, ponts diviseurs.">
+<meta property="og:image" content="assets/images/hero-bulb.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="css/module.css">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="simulateur.html">Simulateur</a>
+    <a href="modules.html" aria-current="page">Modules</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="guide.html">Guide</a>
+  </nav>
+</header>
+
+<main>
+
+<div class="shell crumbs mono">
+  <a href="modules.html">Modules</a><span>/</span><span>Transmission et systèmes</span>
+</div>
+
+<section class="shell module-hero">
+  <p class="eyebrow">Module 11 · Numérique</p>
+  <h1 class="display display-xl">Transmission<br>et systèmes</h1>
+  <p class="lead">
+    Quand un câble devient long devant la longueur d'onde, il ne se comporte
+    plus comme un fil. L'adaptation d'impédance devient indispensable.
+  </p>
+  <div class="hero-actions">
+    <a href="parcours.html#parcours-numerique" class="btn btn-ghost">Voir le parcours</a>
+  </div>
+</section>
+
+<section class="shell">
+  <h2 class="display display-md section-heading">Cours du module</h2>
+  <ol class="cours-index">
+    <li class="cours-entry">
+      <a href="cours.html?id=lignes-transmission" class="cours-row">
+        <span class="cours-num mono">01</span>
+        <div class="cours-info">
+          <h3 class="cours-titre">Lignes de transmission</h3>
+          <p class="cours-desc">Lignes simples, ondes stationnaires, impédance caractéristique, adaptation.</p>
+        </div>
+        <span class="cours-duree mono">1 h 30</span>
+      </a>
+    </li>
+    <li class="cours-entry">
+      <a href="cours.html?id=sous-circuits" class="cours-row">
+        <span class="cours-num mono">02</span>
+        <div class="cours-info">
+          <h3 class="cours-titre">Sous-circuits</h3>
+          <p class="cours-desc">Réutilisation de blocs, hiérarchie, modularité des schémas.</p>
+        </div>
+        <span class="cours-duree mono">45 min</span>
+      </a>
+    </li>
+    <li class="cours-entry">
+      <a href="cours.html?id=appareils-divers" class="cours-row">
+        <span class="cours-num mono">03</span>
+        <div class="cours-info">
+          <h3 class="cours-titre">Appareils divers</h3>
+          <p class="cours-desc">JFET, diodes tunnel, memristors, thyristors, photodiodes, triacs.</p>
+        </div>
+        <span class="cours-duree mono">1 h</span>
+      </a>
+    </li>
+    <li class="cours-entry">
+      <a href="cours.html?id=oscilloscope" class="cours-row">
+        <span class="cours-num mono">04</span>
+        <div class="cours-info">
+          <h3 class="cours-titre">Oscilloscope 2D</h3>
+          <p class="cours-desc">Visualisation des signaux, base de temps, déclenchement, mesures.</p>
+        </div>
+        <span class="cours-duree mono">45 min</span>
+      </a>
+    </li>
+  </ol>
+</section>
+
+<section class="shell module-parcours">
+  <h2 class="display display-md section-heading">Ce module apparaît dans</h2>
+  <div class="parcours-links">
+    <a href="parcours.html#parcours-numerique" class="parcours-link">
+      <span class="mono">04</span>
+      <strong>Numérique</strong>
+      <span>Systèmes et transmission</span>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <span>KODER · 2026</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="a-propos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </nav>
+</footer>
+
+<script src="js/ui/Effects.js" defer></script>
+<script src="js/ui/theme.js" defer></script>
+<script src="js/ui/CookieBanner.js" defer></script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

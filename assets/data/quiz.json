@@ -1,0 +1,14 @@
+{
+  "quiz": [
+    { "id": 1, "module": "dc", "question": "Quelle est l'unité de la résistance ?", "options": ["Volt", "Ampère", "Ohm", "Watt"], "bonne_reponse": 2, "explication": "Le ohm (Ω) est l'unité de résistance." },
+    { "id": 2, "module": "dc", "question": "Formule de la loi d'Ohm ?", "options": ["U = R/I", "U = R×I", "U = I/R", "U = R+I"], "bonne_reponse": 1, "explication": "U = R × I." },
+    { "id": 3, "module": "dc", "question": "Deux résistances de 100Ω en série = ?", "options": ["50Ω", "100Ω", "200Ω", "400Ω"], "bonne_reponse": 2, "explication": "R_eq = R1 + R2 = 200Ω." },
+    { "id": 4, "module": "dc", "question": "Deux résistances de 100Ω en parallèle = ?", "options": ["50Ω", "100Ω", "200Ω", "400Ω"], "bonne_reponse": 0, "explication": "(100×100)/200 = 50Ω." },
+    { "id": 5, "module": "dc", "question": "Loi des nœuds (KCL) ?", "options": ["Σ U = 0", "Σ I entrant = Σ I sortant", "U = R×I", "P = U×I"], "bonne_reponse": 1, "explication": "Conservation du courant." },
+    { "id": 6, "module": "dc", "question": "Loi des mailles (KVL) ?", "options": ["Σ U = 0", "Σ I = 0", "U = R×I", "P = U×I"], "bonne_reponse": 0, "explication": "Somme des tensions = 0." },
+    { "id": 7, "module": "dc", "question": "I dans 12V / 4Ω ?", "options": ["0.33A", "3A", "48A", "16A"], "bonne_reponse": 1, "explication": "I = U/R = 3A." },
+    { "id": 8, "module": "dc", "question": "P dans 10Ω avec I=2A ?", "options": ["20W", "40W", "80W", "5W"], "bonne_reponse": 1, "explication": "P = R×I² = 40W." },
+    { "id": 9, "module": "dc", "question": "Théorème de Thévenin ?", "options": ["P=U×I", "Simplifier un circuit", "Mesurer I", "Fréquence"], "bonne_reponse": 1, "explication": "Simplification en source + résistance." },
+    { "id": 10, "module": "dc", "question": "Unité de la puissance ?", "options": ["Volt", "Ampère", "Ohm", "Watt"], "bonne_reponse": 3, "explication": "Le watt (W)." }
+  ]
+}

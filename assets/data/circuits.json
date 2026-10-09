@@ -1,0 +1,8 @@
+{
+  "circuits": [
+    { "id": "lib-serie", "nom": "Circuit série simple", "description": "Pile + 2 résistances en série", "categorie": "Bases" },
+    { "id": "lib-parallele", "nom": "Circuit parallèle", "description": "Pile + 2 résistances en parallèle", "categorie": "Bases" },
+    { "id": "lib-lampe", "nom": "Circuit avec lampe", "description": "Pile + interrupteur + lampe", "categorie": "Bases" },
+    { "id": "lib-diviseur", "nom": "Diviseur de tension", "description": "Deux résistances en série", "categorie": "Applications" }
+  ]
+}

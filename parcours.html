@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parcours · Laboratoire virtuel</title>
+<meta name="description" content="Quatre parcours progressifs, du courant continu à la transmission.">
+<meta property="og:image" content="assets/images/hero-bulb.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="css/parcours.css">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="simulateur.html">Simulateur</a>
+    <a href="modules.html">Modules</a>
+    <a href="parcours.html" aria-current="page">Parcours</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="guide.html">Guide</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="page-intro shell">
+  <p class="eyebrow">Chemins d'apprentissage</p>
+  <h1 class="display display-xl">Quatre<br><span class="mark">parcours</span></h1>
+  <p class="lead">
+    Les onze modules peuvent se suivre dans n'importe quel ordre. Mais un
+    chemin progressif aide. Quatre parcours sont proposés, du plus simple
+    au plus avancé, selon l'objectif visé.
+  </p>
+</section>
+
+<section class="shell parcours-list" id="parcoursList">
+  <!-- Rempli par JS -->
+</section>
+
+<section class="shell parcours-matrice">
+  <h2 class="display display-md section-heading">Vue d'ensemble</h2>
+  <p class="matrice-intro">
+    Chaque colonne correspond à un parcours. Les modules sont marqués par
+    leur numéro. Un module peut apparaître dans plusieurs parcours.
+  </p>
+  <div id="matrice"></div>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <span>KODER · 2026</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="a-propos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </nav>
+</footer>
+
+<script src="js/cours-data.js"></script>
+<script src="js/modules-data.js"></script>
+<script src="js/parcours-data.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  const list = document.getElementById('parcoursList');
+  if (!list || typeof PARCOURS === 'undefined') return;
+
+  /* ============================================================
+     LISTE DES PARCOURS
+     ============================================================ */
+  PARCOURS.forEach(p => {
+    const modules = ModulesData.parParcours(p.id);
+    const totalCours = modules.reduce((s, m) => s + ModulesData.nombreCours(m.id), 0);
+    const totalTP = modules.reduce((s, m) => s + (m.tp || 0), 0);
+
+    const card = document.createElement('article');
+    card.className = 'parcours-card';
+    card.id = 'parcours-' + p.id;
+    card.style.setProperty('--parcours-color', p.couleur);
+
+    let modulesHtml = '';
+    modules.forEach((m, i) => {
+      const numCours = ModulesData.nombreCours(m.id);
+      const type = m.type === 'existant' ? 'Simulateur' : (numCours + ' cours');
+      modulesHtml +=
+        '<li>' +
+          '<span class="pm-num mono">' + String(i + 1).padStart(2, '0') + '</span>' +
+          '<div>' +
+            '<a href="' + m.page + '" class="pm-link">' + m.titre + '</a>' +
+            '<span class="pm-desc">' + m.description + '</span>' +
+            '<span class="pm-meta mono">' + type + ' · ' + m.duree + '</span>' +
+          '</div>' +
+        '</li>';
+    });
+
+    card.innerHTML =
+      '<div class="parcours-head">' +
+        '<span class="parcours-num mono">' + p.numero + '</span>' +
+        '<div>' +
+          '<h2 class="parcours-name display display-md">' + p.titre + '</h2>' +
+          '<p class="parcours-tagline">' + p.tagline + '</p>' +
+        '</div>' +
+      '</div>' +
+      '<p class="parcours-desc">' + p.description + '</p>' +
+      '<ul class="parcours-modules">' + modulesHtml + '</ul>' +
+      '<div class="parcours-meta">' +
+        '<div><dt>Durée</dt><dd>' + p.duree + '</dd></div>' +
+        '<div><dt>Niveau</dt><dd>' + p.niveau + '</dd></div>' +
+        '<div><dt>Prérequis</dt><dd>' + p.prerequis + '</dd></div>' +
+      '</div>' +
+      '<div class="parcours-actions">' +
+        '<a href="' + modules[0].page + '" class="btn btn-primary">Commencer ce parcours</a>' +
+        '<a href="#matrice" class="btn btn-ghost">Voir les modules</a>' +
+      '</div>';
+
+    list.appendChild(card);
+  });
+
+  /* ============================================================
+     MATRICE RÉCAPITULATIVE
+     ============================================================ */
+  const matrice = document.getElementById('matrice');
+  if (!matrice) return;
+
+  let html = '<table class="matrice-table"><thead><tr><th>Module</th>';
+  PARCOURS.forEach(p => {
+    html += '<th style="color:' + p.couleur + '">' + p.numero + '</th>';
+  });
+  html += '</tr></thead><tbody>';
+
+  MODULES.forEach(m => {
+    html += '<tr>';
+    html += '<td><a href="' + m.page + '">' + m.titre + '</a> <span class="matrice-num mono">' + m.numero + '</span></td>';
+    PARCOURS.forEach(p => {
+      const included = p.modules.includes(m.id);
+      html += '<td class="matrice-cell">' +
+        (included ? '<span class="matrice-dot" style="background:' + p.couleur + '"></span>' : '<span class="matrice-dash">·</span>') +
+      '</td>';
+    });
+    html += '</tr>';
+  });
+
+  html += '</tbody></table>';
+  matrice.innerHTML = html;
+
+});
+</script>
+
+<script src="js/ui/Effects.js" defer></script>
+<script src="js/ui/theme.js" defer></script>
+<script src="js/ui/CookieBanner.js" defer></script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

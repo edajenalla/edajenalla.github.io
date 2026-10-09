@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <link rel="manifest" href="/circuit/manifest.json">
+  
+    <!-- Properties can be specified to influence deferred binding -->
+    <meta name='gwt:property' content='locale=en_UK'>
+    
+    
+    <!-- Titles are optional, but useful -->
+    <title> VIRTU-LAB</title>
+
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap');
+:root,
+[data-theme="dark"] {
+  --bg: #0a0a0f;
+  --ink: #121218;
+  --paper: #16161d;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --text: #f2f2f5;
+  --text-dim: #9696a3;
+  --text-faint: #55555f;
+  --blue: #0d2cdd;
+  --blue-soft: rgba(30, 64, 255, 0.15);
+  --green: #2ea043;
+  --amber: #d29922;
+  --red: #f85149;
+  --grain: 0.035;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'Instrument Sans', system-ui, sans-serif;
+  --font-mono: 'Azeret Mono', ui-monospace, monospace;
+
+  --pad-x: clamp(1.25rem, 5vw, 5rem);
+  --section-y: clamp(4rem, 10vw, 9rem);
+}
+
+[data-theme="light"] {
+  --bg: #f7f7f9;
+  --ink: #ffffff;
+  --paper: #ffffff;
+  --line: rgba(0, 0, 0, 0.08);
+  --line-strong: rgba(0, 0, 0, 0.18);
+  --text: #0a0a0f;
+  --text-dim: #55555f;
+  --text-faint: #9696a3;
+  --blue: #1e40ff;
+  --blue-soft: rgba(30, 64, 255, 0.08);
+  --green: #1a7f37;
+  --amber: #9a6700;
+  --red: #cf222e;
+  --grain: 0.012;
+}
+
+.disabled {
+	color: rgb(150, 137, 182)
+}
+.topSpace {
+	margin-top: 12px;
+}
+.cursorPointer {
+   cursor: default;
+}
+.cursorCross {
+   cursor: crosshair;
+}
+
+.cursorSplitter {
+   cursor: row-resize;
+}
+
+.gwt-MenuItem-disabled {
+	color: rgba(119, 119, 194, 0.795);
+}
+.offScreen {
+	position: absolute;
+	right: 101%;
+	overflow: hidden;
+}
+.gwt-Frame{
+	scrolling ="no";
+	border: 0px !important;
+}
+
+.gwt-MenuItem {
+	font-size: 12px !important;
+}
+
+.gwt-MenuBar-horizontal {
+	font-size: 12px !important;
+	}
+	
+.gwt-Label-selected {
+	font-size: 1.3em;
+	font-weight: 700;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black var(--line);
+}
+.gwt-Label-1off {
+	color: DarkGray var(--paper);
+}
+
+.gwt-Label-2off {
+	font-size:0.8em;
+	color: LightGray var(--paper);
+}
+
+.gwt-Label-current {
+}
+
+.gwt-Button.chbut {
+	padding:3px;
+	margin: 3px;
+}
+
+.gwt-Button.chbut.chsel {
+	font-weight: bold;
+}
+
+.gwt-Button.chbut-black {
+	background: black var(--bg);
+	color: white ;
+}
+
+.gwt-Button.chbut-white {
+	background: white;
+	color: black;
+}
+
+.gwt-TextBox.scalebox {
+	width: 100px;
+}
+
+.gwt-Button.expand-but {
+	line-height: 0;
+	font-size: 13px;
+	margin-right: 5px;
+	border-radius:0px;
+	display: inline-block;
+	text-align: center;
+	width: 15px;
+	height: 15px;
+	padding-left: 0;
+	padding-right: 0;
+	padding-bottom:1px;
+	padding-top:0;
+	margin-bottom:1px;
+	background:black var(--bg);
+	color:rgb(42, 2, 65)
+}
+
+
+.topButton-red {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left:5px;
+    padding: 5px 7px;
+    text-decoration: none;
+    color: #ffffff;
+    cursor: pointer;
+    cursor: hand;
+    font-size: small;
+    background-color: #b10505; 
+    border: 1px solid #bbb;
+    border-bottom: 1px solid #a0a0a0;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
+.topButton {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left:5px;
+    padding: 5px 7px;
+    text-decoration: none;
+    cursor: pointer;
+    cursor: hand;
+    font-size: small;
+    background-color: #e7e7e7; 
+    border: 1px solid #bbb;
+    border-bottom: 1px solid #a0a0a0;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
+.radioPanel label {
+	margin-right: 15px;
+}
+
+</style>
+
+<link rel="stylesheet" href="font/fontello.css">
+
+</head>
+  <body>
+  <!-- Include the next line to allow support for dropbox import/export. You will need your own app key. -->
+  <!--<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="YOUR_KEY"></script>-->
+
+  <script language="javascript" src="lz-string.min.js"></script>
+   
+    <!-- This script tag is what actually loads the GWT module.  The -->
+    <!-- 'nocache.js' file (also called a "selection script") is     -->
+    <!-- produced by the GWT compiler in the module output directory -->
+    <!-- or generated automatically in development mode.             -->
+    <script language="javascript" src="circuitjs1/circuitjs1.nocache.js"></script>
+    
+    <!-- Include a history iframe to enable full GWT history support -->
+    <!-- (the id must be exactly as shown)                           -->
+    <iframe src="javascript:''" id="__gwt_historyFrame" style="width:0;height:0;border:0"></iframe>
+    
+    <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+	navigator.serviceWorker.register('service-worker.js').then(registration => {
+	  console.log('Service Worker registered with scope:', registration.scope);
+	}).catch(error => {
+	  console.error('Service Worker registration failed:', error);
+	});
+      });
+    }
+    </script>
+
+  </body>
+ </html>

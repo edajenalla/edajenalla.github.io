@@ -1,0 +1,232 @@
+/* ============================================================
+   ACCUEIL — image de l'ampoule en arrière-plan
+   ============================================================ */
+
+body.home {
+  background: #0a0a0f;
+  overflow: hidden;
+}
+
+body.home::before {
+  display: none; /* on désactive le grain global sur la page d'accueil */
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 68px 0 220px;
+}
+
+/* Image de l'ampoule */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/images/hero-bulb.jpg');
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* Dégradé sombre à gauche pour la lisibilité du texte */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg,
+      rgba(10, 10, 15, 0.98) 0%,
+      rgba(10, 10, 15, 0.85) 35%,
+      rgba(10, 10, 15, 0.4) 65%,
+      rgba(10, 10, 15, 0.2) 100%),
+    linear-gradient(180deg,
+      rgba(10, 10, 15, 0.6) 0%,
+      transparent 25%,
+      transparent 65%,
+      rgba(10, 10, 15, 0.85) 100%);
+  z-index: 1;
+}
+
+/* Grain local sur le hero */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--pad-x);
+}
+
+.hero-left {
+  max-width: 620px;
+}
+
+.hero-left .eyebrow {
+  color: rgba(242, 242, 245, 0.65);
+}
+
+.hero h1 {
+  margin: 1.5rem 0 2rem;
+  position: relative;
+}
+
+.hero .accent-bar {
+  display: inline-block;
+  width: 6px;
+  height: 0.85em;
+  background: var(--blue);
+  vertical-align: middle;
+  margin-right: 1rem;
+}
+
+.hero .lead {
+  color: rgba(242, 242, 245, 0.75);
+  max-width: 52ch;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 3rem;
+  flex-wrap: wrap;
+}
+
+.hero-credit {
+  position: absolute;
+  bottom: 240px;
+  right: var(--pad-x);
+  z-index: 3;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 245, 0.4);
+}
+
+/* ============================================================
+   CARTES DU BAS
+   ============================================================ */
+.bottom-cards {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 10, 15, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 50;
+}
+
+.info-card {
+  padding: 1.75rem 3rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  gap: 0.5rem 1rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.25s;
+  color: inherit;
+}
+.info-card:last-child { border-right: none; }
+.info-card:hover { background: rgba(30, 64, 255, 0.1); }
+
+.card-num {
+  color: var(--blue);
+  font-size: 0.72rem;
+  grid-row: 1;
+}
+
+.card-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  grid-row: 1;
+  color: #f2f2f5;
+}
+
+.card-desc {
+  grid-column: 1 / -1;
+  font-size: 0.85rem;
+  color: rgba(242, 242, 245, 0.6);
+  max-width: 42ch;
+}
+
+/* ============================================================
+   ADAPTATION AU THÈME CLAIR
+   ============================================================ */
+[data-theme="light"] body.home,
+[data-theme="light"] .hero-bg {
+  background-color: #f7f7f9;
+}
+
+[data-theme="light"] .hero-overlay {
+  background:
+    linear-gradient(90deg,
+      rgba(247, 247, 249, 0.98) 0%,
+      rgba(247, 247, 249, 0.9) 35%,
+      rgba(247, 247, 249, 0.5) 65%,
+      rgba(247, 247, 249, 0.25) 100%),
+    linear-gradient(180deg,
+      rgba(247, 247, 249, 0.7) 0%,
+      transparent 25%,
+      transparent 65%,
+      rgba(247, 247, 249, 0.9) 100%);
+}
+
+[data-theme="light"] .hero-left .eyebrow { color: #55555f; }
+[data-theme="light"] .hero .lead { color: #33333a; }
+[data-theme="light"] .hero-credit { color: rgba(10, 10, 15, 0.35); }
+
+[data-theme="light"] .bottom-cards {
+  background: rgba(247, 247, 249, 0.92);
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+[data-theme="light"] .card-title { color: #0a0a0f; }
+[data-theme="light"] .card-desc { color: #55555f; }
+[data-theme="light"] .info-card { border-right-color: rgba(0, 0, 0, 0.08); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .hero { padding-bottom: 280px; }
+  .hero-bg { background-position: center; }
+  .hero-overlay {
+    background:
+      linear-gradient(180deg,
+        rgba(10, 10, 15, 0.85) 0%,
+        rgba(10, 10, 15, 0.7) 40%,
+        rgba(10, 10, 15, 0.95) 100%);
+  }
+  [data-theme="light"] .hero-overlay {
+    background:
+      linear-gradient(180deg,
+        rgba(247, 247, 249, 0.9) 0%,
+        rgba(247, 247, 249, 0.7) 40%,
+        rgba(247, 247, 249, 0.95) 100%);
+  }
+  .hero-credit { display: none; }
+}
+
+@media (max-width: 700px) {
+  .bottom-cards { grid-template-columns: 1fr; }
+  .info-card { padding: 1.25rem 1.5rem; }
+  .bottom-cards { position: relative; }
+  .hero { padding-bottom: 4rem; }
+  body.home { overflow: auto; }
+}

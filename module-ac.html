@@ -1,0 +1,476 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Courant continu · Laboratoire virtuel</title>
+<meta name="description" content="Cinq TP sur les circuits en courant continu : loi d'Ohm, Kirchhoff, Thévenin.">
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="css/module.css">
+<link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/instrumentsans/v4/pximys0itdpkzchkngyrjw.woff2" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="simulateur.html">Simulateur</a>
+    <a href="modules.html" aria-current="page">Modules</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="guide.html">Guide</a>
+  </nav>
+</header>
+
+<div class="shell crumbs mono">
+  <a href="modules.html">Modules</a><span>/</span><span>Courant alternatif</span>
+</div>
+
+<section class="shell module-hero">
+  <p class="eyebrow">Module 02</p>
+  <h1 class="display display-xl">Courant<br>alternatif</h1>
+  <p class="lead">
+    La tension change de sens cinquante fois par seconde. Les résistances ne
+    suffisent plus pour décrire ce qui se passe. Il faut une nouvelle
+    grandeur, l'impédance, et une nouvelle façon de calculer, avec les
+    nombres complexes.
+  </p>
+  <div class="hero-actions">
+    <a href="quiz.html?module=ac" class="btn btn-primary">Passer le quiz AC</a>
+  </div>
+</section>
+
+<section class="shell">
+  <h2 class="display display-md section-heading">Ce qu'il faut savoir avant</h2>
+
+  <div class="concept-grid">
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">01</span>
+        <h3 class="concept-name">Impédance</h3>
+      </div>
+      <div class="concept-formula">Z = R + jX</div>
+      <div class="concept-explanation">
+        <p>
+          En alternatif, une résistance ne suffit plus. Les bobines et les
+          condensateurs introduisent un déphasage entre la tension et le
+          courant. On regroupe tout dans une seule grandeur complexe,
+          l'impédance.
+        </p>
+        <p>
+          Sa partie réelle R dissipe de l'énergie. Sa partie imaginaire X
+          stocke puis restitue de l'énergie. Le module |Z| donne le rapport
+          entre les amplitudes, l'argument donne le déphasage.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          L'usage des nombres complexes en électricité remonte à la fin du
+          XIXe siècle. Charles Proteus Steinmetz, ingénieur chez General
+          Electric, impose ce formalisme en 1893 dans un article qui
+          transforme radicalement l'analyse des circuits alternatifs.
+        </p>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">02</span>
+        <h3 class="concept-name">Réactance inductive</h3>
+      </div>
+      <div class="concept-formula">X_L = 2π f L</div>
+      <div class="concept-explanation">
+        <p>
+          Une bobine s'oppose aux variations du courant qui la traverse.
+          Plus la fréquence est élevée, plus cette opposition est forte.
+        </p>
+        <p>
+          À fréquence nulle, une bobine se comporte comme un fil. À très
+          haute fréquence, elle se comporte comme un circuit ouvert. Sa
+          réactance croît linéairement avec la fréquence.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          Michael Faraday en Angleterre et Joseph Henry aux États-Unis
+          découvrent indépendamment le phénomène d'induction dans les
+          années 1830. L'unité d'inductance porte le nom de Henry.
+        </p>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">03</span>
+        <h3 class="concept-name">Réactance capacitive</h3>
+      </div>
+      <div class="concept-formula">X_C = 1 / (2π f C)</div>
+      <div class="concept-explanation">
+        <p>
+          Un condensateur s'oppose aux variations de tension. Plus la
+          fréquence est élevée, plus il laisse passer le courant
+          facilement.
+        </p>
+        <p>
+          À fréquence nulle, un condensateur bloque le courant. À très
+          haute fréquence, il se comporte comme un fil. Sa réactance
+          décroît quand la fréquence augmente.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          L'effet est découvert en 1745 par Pieter van Musschenbroek à
+          Leyde, avec la bouteille qui porte le nom de la ville. Le mot
+          « condensateur » n'apparaît qu'au XXe siècle, en remplacement du
+          terme « condensateur électrique ».
+        </p>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">04</span>
+        <h3 class="concept-name">Puissance active</h3>
+      </div>
+      <div class="concept-formula">P = U × I × cos φ</div>
+      <div class="concept-explanation">
+        <p>
+          Seule la composante du courant en phase avec la tension produit
+          un travail utile. Le cos φ, appelé facteur de puissance, mesure
+          cette proportion.
+        </p>
+        <p>
+          Un facteur de puissance de 1 signifie que toute l'énergie est
+          transformée en travail. Un facteur de 0,5 signifie que la moitié
+          seulement est utile, l'autre moitié oscille sans effet net.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          La distinction entre puissance active et réactive émerge dans les
+          années 1880, quand les premiers réseaux alternatifs se déploient.
+          André Blondel propose en 1894 une méthode de mesure graphique qui
+          sera utilisée pendant des décennies.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="shell">
+  <h2 class="display display-md section-heading">Travaux pratiques</h2>
+  <ol class="tp-index">
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">01</span>
+        <span class="tp-name display display-md">Circuit RL série</span>
+        <span class="tp-time mono">40 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            Une résistance et une bobine en série. Le courant est en retard
+            sur la tension, et ce retard dépend du rapport entre la
+            réactance et la résistance. On le mesure à l'oscilloscope.
+          </p>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Calculer l'impédance totale du circuit</li>
+            <li>Mesurer le déphasage à l'oscilloscope</li>
+            <li>Comparer la valeur mesurée et la valeur calculée</li>
+          </ul>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            L'impédance complexe s'écrit Z = R + jX_L. Le module vaut la
+            racine de la somme des carrés. Le déphasage vaut l'arc
+            tangente du rapport X_L / R.
+          </p>
+          <div class="tp-formula">|Z| = √(R² + X_L²)  ·  φ = arctan(X_L / R)</div>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Placer une source AC de 230 V / 50 Hz</li>
+            <li>Ajouter une résistance de 100 Ω</li>
+            <li>Ajouter une bobine de 0,1 H</li>
+            <li>Relier le tout en série</li>
+            <li>Brancher l'oscilloscope sur la résistance et la bobine</li>
+            <li>Mesurer le décalage temporel entre les deux courbes</li>
+          </ol>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            La réactance vaut 31,4 Ω. L'impédance totale vaut 104,8 Ω. Le
+            courant efficace vaut 2,19 A. Le déphasage vaut 17,4°, le
+            courant est en retard sur la tension.
+          </p>
+        </div>
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>Un circuit RL complet, prêt à être simulé.</p>
+          <a href="simulateur.html?example=ac-rl" class="btn btn-primary btn-load-example">Charger l'exemple</a>
+        </div>
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=ac-1" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=circuit+RL+serie+cours+electrotechnique+francais" target="_blank" rel="noopener" class="btn btn-ghost">Voir une vidéo</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">02</span>
+        <span class="tp-name display display-md">Circuit RC série</span>
+        <span class="tp-time mono">40 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            Cette fois, on remplace la bobine par un condensateur. Le courant
+            passe en avance sur la tension, contrairement au circuit RL.
+          </p>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Calculer la réactance capacitive</li>
+            <li>Mesurer le déphasage à l'oscilloscope</li>
+            <li>Comprendre pourquoi le courant est en avance</li>
+          </ul>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            L'impédance s'écrit Z = R − jX_C. Le signe négatif traduit le
+            retard de la tension par rapport au courant. Le déphasage est
+            donc négatif.
+          </p>
+          <div class="tp-formula">φ = −arctan(X_C / R)</div>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Placer une source AC de 230 V</li>
+            <li>Ajouter une résistance de 100 Ω</li>
+            <li>Ajouter un condensateur de 10 µF</li>
+            <li>Relier le tout en série</li>
+            <li>Observer les deux courbes à l'oscilloscope</li>
+            <li>Mesurer le décalage temporel</li>
+          </ol>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            La réactance vaut 318 Ω. L'impédance totale vaut 334 Ω. Le
+            courant mesure 0,69 A. Le déphasage vaut -72,6°, le courant est
+            bien en avance sur la tension.
+          </p>
+        </div>
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>Un circuit RC complet, prêt à être simulé.</p>
+          <a href="simulateur.html?example=ac-rc" class="btn btn-primary btn-load-example">Charger l'exemple</a>
+        </div>
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=ac-2" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=circuit+RC+serie+cours+electrotechnique+francais" target="_blank" rel="noopener" class="btn btn-ghost">Voir une vidéo</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">03</span>
+        <span class="tp-name display display-md">Résonance RLC</span>
+        <span class="tp-time mono">50 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            On réunit bobine et condensateur dans le même circuit. Pour une
+            fréquence bien précise, leurs deux réactances s'annulent. Le
+            courant atteint alors son maximum.
+          </p>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Calculer la fréquence de résonance</li>
+            <li>Déterminer le facteur de qualité</li>
+            <li>Observer la courbe du courant en fonction de la fréquence</li>
+          </ul>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            À la résonance, X_L égale X_C. L'impédance redevient purement
+            résistive et vaut R. Le facteur de qualité Q mesure la
+            sélectivité du circuit.
+          </p>
+          <div class="tp-formula">f₀ = 1 / (2π√(L × C))</div>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Placer une source AC variable</li>
+            <li>Ajouter R = 100 Ω, L = 0,1 H, C = 10 µF en série</li>
+            <li>Régler la fréquence à 100 Hz, mesurer le courant</li>
+            <li>Augmenter par paliers de 20 Hz</li>
+            <li>Identifier la fréquence où le courant est maximal</li>
+            <li>Comparer avec la valeur théorique</li>
+          </ol>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            La fréquence de résonance vaut 159 Hz. Le facteur de qualité
+            vaut 3,16. La bande passante s'étend sur 50 Hz autour de cette
+            fréquence.
+          </p>
+        </div>
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>Un circuit RLC série réglé sur sa fréquence de résonance.</p>
+          <a href="simulateur.html?example=ac-resonance" class="btn btn-primary btn-load-example">Charger l'exemple</a>
+        </div>
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=ac-3" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=resonance+RLC+cours+electrotechnique+francais" target="_blank" rel="noopener" class="btn btn-ghost">Voir une vidéo</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">04</span>
+        <span class="tp-name display display-md">Puissances en régime AC</span>
+        <span class="tp-time mono">50 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            Trois puissances coexistent en alternatif. Active, réactive,
+            apparente. Elles forment un triangle rectangle dont l'angle est
+            le déphasage.
+          </p>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Calculer P, Q et S</li>
+            <li>Vérifier la relation S² = P² + Q²</li>
+            <li>Déterminer le facteur de puissance</li>
+          </ul>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            La puissance active P effectue le travail. La puissance réactive
+            Q oscille entre la source et les composants réactifs. La
+            puissance apparente S est leur somme vectorielle.
+          </p>
+          <div class="tp-formula">S² = P² + Q²</div>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Construire un circuit RL ou RLC</li>
+            <li>Mesurer U, I et φ</li>
+            <li>Calculer P = U × I × cos φ</li>
+            <li>Calculer Q = U × I × sin φ</li>
+            <li>Calculer S = U × I</li>
+            <li>Vérifier la relation S² = P² + Q²</li>
+          </ol>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            Avec U = 230 V, I = 2,19 A et cos φ = 0,954, on trouve P = 480 W,
+            Q = 158 VAR, S = 504 VA. La relation S² = P² + Q² est vérifiée à
+            la précision des mesures.
+          </p>
+        </div>
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>Un circuit RL avec ses mesures de puissances affichées.</p>
+          <a href="simulateur.html?example=ac-puissances" class="btn btn-primary btn-load-example">Charger l'exemple</a>
+        </div>
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=ac-4" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=puissance+active+reactive+apparente+cours+francais" target="_blank" rel="noopener" class="btn btn-ghost">Voir une vidéo</a>
+        </div>
+      </div>
+    </li>
+
+  </ol>
+</section>
+
+<footer class="site-foot">
+  <span>KODER · 2026</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="a-propos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </nav>
+</footer>
+
+<script>
+document.querySelectorAll('.tp-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const d = btn.nextElementSibling;
+    const open = !d.hidden;
+    d.hidden = open;
+    btn.setAttribute('aria-expanded', String(!open));
+  });
+});
+</script>
+<script src="js/ui/Effects.js" defer></script>
+<script src="js/ui/theme.js"></script>
+<script src="js/ui/CookieBanner.js"></script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

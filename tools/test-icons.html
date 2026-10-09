@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Test des icônes SVG</title>
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    padding: 40px;
+  }
+  h1 { color: #3b82f6; margin-bottom: 30px; }
+  h2 { color: #8b949e; font-size: 1em; margin: 20px 0 15px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .item {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+  }
+  .item img, .item svg {
+    max-width: 100%;
+    height: auto;
+    max-height: 80px;
+    margin-bottom: 10px;
+  }
+  .label {
+    font-size: 0.8em;
+    color: #8b949e;
+  }
+</style>
+</head>
+<body>
+
+<h1>Test des icônes SVG</h1>
+
+<h2>Icônes PWA et logos</h2>
+<div class="grid">
+  <div class="item">
+    <img src="../assets/icons/icon.svg" alt="Icon PWA">
+    <div class="label">icon.svg</div>
+  </div>
+  <div class="item">
+    <img src="../assets/images/logo-enset.svg" alt="Logo ENSET">
+    <div class="label">logo-enset.svg</div>
+  </div>
+  <div class="item">
+    <img src="../assets/images/logo-lab.svg" alt="Logo Labo">
+    <div class="label">logo-lab.svg</div>
+  </div>
+  <div class="item">
+    <img src="../assets/images/favicon.svg" alt="Favicon">
+    <div class="label">favicon.svg</div>
+  </div>
+</div>
+
+<h2>Composants électriques</h2>
+<div class="grid">
+  <div class="item">
+    <img src="../assets/composants/pile.svg" alt="Pile">
+    <div class="label">pile.svg</div>
+  </div>
+  <div class="item">
+    <img src="../assets/composants/resistance.svg" alt="Résistance">
+    <div class="label">resistance.svg</div>
+  </div>
+  <div class="item">
+    <img src="../assets/composants/lampe.svg" alt="Lampe éteinte">
+    <div class="label">lampe.svg (éteinte)</div>
+  </div>
+  <div class="item">
+    <img src="../assets/composants/lampe-allumee.svg" alt="Lampe allumée">
+    <div class="label">lampe-allumee.svg</div>
+  </div>
+  <div class="item">
+    <img src="../assets/composants/interrupteur.svg" alt="Interrupteur ouvert">
+    <div class="label">interrupteur.svg (ouvert)</div>
+  </div>
+  <div class="item">
+    <img src="../assets/composants/interrupteur-ferme.svg" alt="Interrupteur fermé">
+    <div class="label">interrupteur-ferme.svg</div>
+  </div>
+  <div class="item">
+    <img src="../assets/composants/fil.svg" alt="Fil">
+    <div class="label">fil.svg</div>
+  </div>
+  <div class="item">
+    <img src="../assets/composants/source-ac.svg" alt="Source AC">
+    <div class="label">source-ac.svg</div>
+  </div>
+  <div class="item">
+    <img src="../assets/composants/inductance.svg" alt="Inductance">
+    <div class="label">inductance.svg</div>
+  </div>
+  <div class="item">
+    <img src="../assets/composants/condensateur.svg" alt="Condensateur">
+    <div class="label">condensateur.svg</div>
+  </div>
+</div>
+
+<h2>Fond décoratif</h2>
+<div class="grid" style="grid-template-columns: 1fr;">
+  <div class="item" style="padding: 0; overflow: hidden;">
+    <img src="../assets/images/hero-bg.svg" alt="Hero background" style="max-height: 200px; width: 100%;">
+    <div class="label" style="padding: 10px;">hero-bg.svg</div>
+  </div>
+</div>
+
+</body>
+</html>

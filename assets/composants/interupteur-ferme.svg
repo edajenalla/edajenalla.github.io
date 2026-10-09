@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 70 30" width="70" height="30">
+  <defs>
+    <filter id="swShadowOn">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <rect x="5" y="8" width="60" height="14" rx="7" fill="#3fb950" filter="url(#swShadowOn)"/>
+  <circle cx="48" cy="15" r="9" fill="#fff" filter="url(#swShadowOn)"/>
+  <ellipse cx="48" cy="12" rx="5" ry="2" fill="#fff" opacity="0.6"/>
+  <circle cx="8" cy="15" r="3" fill="#3b82f6"/>
+  <circle cx="62" cy="15" r="3" fill="#3b82f6"/>
+</svg>

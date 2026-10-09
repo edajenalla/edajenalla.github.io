@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 40" width="80" height="40">
+  <defs>
+    <linearGradient id="pileBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e74c3c"/>
+      <stop offset="100%" stop-color="#96281b"/>
+    </linearGradient>
+    <filter id="pileShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  <rect x="10" y="8" width="60" height="24" rx="3" fill="url(#pileBody)" filter="url(#pileShadow)"/>
+  <rect x="10" y="8" width="60" height="6" rx="3" fill="#fff" opacity="0.15"/>
+  <text x="45" y="24" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#fff" text-anchor="middle">9V</text>
+  <rect x="70" y="16" width="6" height="8" rx="1" fill="#ccc"/>
+  <text x="73" y="14" font-family="Inter, sans-serif" font-size="9" font-weight="800" fill="#e74c3c" text-anchor="middle">+</text>
+  <rect x="4" y="16" width="6" height="8" rx="1" fill="#333"/>
+  <text x="7" y="14" font-family="Inter, sans-serif" font-size="9" font-weight="800" fill="#3b82f6" text-anchor="middle">−</text>
+</svg>

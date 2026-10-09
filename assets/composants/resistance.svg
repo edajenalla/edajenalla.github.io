@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 30" width="80" height="30">
+  <defs>
+    <linearGradient id="resBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f5deb3"/>
+      <stop offset="50%" stop-color="#deb887"/>
+      <stop offset="100%" stop-color="#c4a060"/>
+    </linearGradient>
+    <filter id="resShadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <rect x="10" y="6" width="60" height="18" rx="9" fill="url(#resBody)" filter="url(#resShadow)"/>
+  <rect x="12" y="7" width="56" height="4" rx="2" fill="#fff" opacity="0.3"/>
+  <rect x="22" y="6" width="3" height="18" fill="#8b4513"/>
+  <rect x="30" y="6" width="3" height="18" fill="#000"/>
+  <rect x="38" y="6" width="3" height="18" fill="#8b4513"/>
+  <text x="58" y="18" font-family="JetBrains Mono, monospace" font-size="7" font-weight="700" fill="#3a2817">100Ω</text>
+</svg>

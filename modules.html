@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modules · Laboratoire virtuel</title>
+<meta name="description" content="Onze modules, du courant continu à la transmission.">
+<meta property="og:image" content="assets/images/hero-bulb.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="css/modules.css">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="simulateur.html">Simulateur</a>
+    <a href="modules.html" aria-current="page">Modules</a>
+    <a href="parcours.html">Parcours</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="guide.html">Guide</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="page-intro shell">
+  <p class="eyebrow">Catalogue</p>
+  <h1 class="display display-xl">Onze<br><span class="mark">modules</span></h1>
+  <p class="lead">
+    Onze modules rangés en quatre catégories. Certains contiennent un
+    simulateur et des fiches de TP. Les autres rassemblent des cours
+    détaillés, formule, explication, origine, schémas.
+  </p>
+</section>
+
+<section class="shell modules-categories" id="modulesCatalogue">
+  <!-- Rempli par JS -->
+</section>
+
+<section class="shell bottom-links">
+  <a href="parcours.html" class="bottom-link">
+    <span class="mono">Parcours</span>
+    <span>Quatre chemins progressifs selon l'objectif visé</span>
+  </a>
+  <a href="quiz.html" class="bottom-link">
+    <span class="mono">Quiz</span>
+    <span>Vérifier ses connaissances sur chaque module</span>
+  </a>
+  <a href="guide.html" class="bottom-link">
+    <span class="mono">Guide</span>
+    <span>Mode d'emploi détaillé du simulateur</span>
+  </a>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <span>KODER · 2026</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="a-propos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </nav>
+</footer>
+
+<script src="js/cours-data.js"></script>
+<script src="js/modules-data.js"></script>
+<script src="js/parcours-data.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.getElementById('modulesCatalogue');
+  if (!container || typeof MODULES === 'undefined') return;
+
+  const ordreCategories = ['Fondamentaux', 'Énergie', 'Analogique', 'Numérique'];
+  const nomsCategories = {
+    'Fondamentaux': 'Les fondamentaux',
+    'Énergie': 'Énergie et puissance',
+    'Analogique': 'Électronique analogique',
+    'Numérique': 'Numérique et transmission'
+  };
+  const descriptionsCategories = {
+    'Fondamentaux': 'Les lois de base. Circuits en courant continu et alternatif.',
+    'Énergie': 'Transport et distribution de l\'énergie électrique.',
+    'Analogique': 'Composants actifs, amplification, filtrage.',
+    'Numérique': 'Logique, conversion, transmission.'
+  };
+
+  let html = '';
+
+  ordreCategories.forEach(cat => {
+    const modules = MODULES.filter(m => m.categorie === cat);
+    if (!modules.length) return;
+
+    html += '<section class="modules-category">';
+    html += '<header class="cat-head">';
+    html += '<h2 class="display display-md">' + nomsCategories[cat] + '</h2>';
+    html += '<p class="cat-desc">' + descriptionsCategories[cat] + '</p>';
+    html += '</header>';
+    html += '<div class="cat-grid">';
+
+    modules.forEach(m => {
+      const nbCours = ModulesData.nombreCours(m.id);
+      const typeLabel = m.type === 'existant'
+        ? (m.tp + ' TP · Simulateur')
+        : (nbCours + ' cours');
+
+      html +=
+        '<a href="' + m.page + '" class="module-card">' +
+          '<div class="mc-head">' +
+            '<span class="mc-num mono">' + m.numero + '</span>' +
+            '<span class="mc-duree mono">' + m.duree + '</span>' +
+          '</div>' +
+          '<h3 class="mc-titre">' + m.titre + '</h3>' +
+          '<p class="mc-desc">' + m.description + '</p>' +
+          '<div class="mc-foot">' +
+            '<span class="mc-type mono">' + typeLabel + '</span>' +
+            '<span class="mc-niveau mono">' + m.niveau + '</span>' +
+          '</div>' +
+        '</a>';
+    });
+
+    html += '</div></section>';
+  });
+
+  container.innerHTML = html;
+});
+</script>
+
+<script src="js/ui/Effects.js" defer></script>
+<script src="js/ui/theme.js" defer></script>
+<script src="js/ui/CookieBanner.js" defer></script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

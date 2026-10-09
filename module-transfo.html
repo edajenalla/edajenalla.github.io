@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Courant continu · Laboratoire virtuel</title>
+<meta name="description" content="Cinq TP sur les circuits en courant continu.">
+<meta property="og:image" content="assets/images/hero-bulb.jpg">
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="css/module.css">
+<link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/instrumentsans/v4/pximys0itdpkzchkngyrjw.woff2" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="simulateur.html">Simulateur</a>
+    <a href="modules.html" aria-current="page">Modules</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="guide.html">Guide</a>
+  </nav>
+</header>
+
+<div class="shell crumbs mono">
+  <a href="modules.html">Modules</a><span>/</span><span>Transformateur</span>
+</div>
+
+<section class="shell module-hero">
+  <p class="eyebrow">Module 04</p>
+  <h1 class="display display-xl">Transfor-<br>mateur</h1>
+  <p class="lead">
+    Deux bobines autour d'un noyau de fer. Aucun contact électrique entre
+    l'entrée et la sortie. Le courant alternatif au primaire crée un champ
+    magnétique variable qui induit une tension au secondaire.
+  </p>
+  <div class="hero-actions">
+    <a href="quiz.html?module=transfo" class="btn btn-primary">Passer le quiz transformateur</a>
+  </div>
+</section>
+
+<section class="shell">
+  <h2 class="display display-md section-heading">Ce qu'il faut savoir avant</h2>
+
+  <div class="concept-grid">
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">01</span>
+        <h3 class="concept-name">Rapport de transformation</h3>
+      </div>
+      <div class="concept-formula">m = U₂ / U₁ = N₂ / N₁</div>
+      <div class="concept-explanation">
+        <p>
+          Le rapport des tensions au secondaire et au primaire égale le
+          rapport du nombre de spires dans les deux bobines. Un
+          transformateur avec deux fois plus de spires au secondaire
+          produit deux fois plus de tension.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          Le principe est découvert par Faraday et Henry dans les années
+          1830. Le premier transformateur industriel utilisable est
+          construit par Lucien Gaulard et John Dixon Gibbs en 1884, puis
+          perfectionné par Zipernowsky, Déri et Bláthy à Budapest en 1885.
+        </p>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">02</span>
+        <h3 class="concept-name">Loi de Faraday</h3>
+      </div>
+      <div class="concept-formula">e = −N × dΦ / dt</div>
+      <div class="concept-explanation">
+        <p>
+          La tension induite dans une bobine dépend de la vitesse de
+          variation du flux magnétique qui la traverse, et du nombre de
+          spires. Le signe négatif traduit l'opposition au changement,
+          énoncée par Lenz.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          Michael Faraday publie cette loi en 1831, après une série
+          d'expériences sur l'induction. Elle unifie l'électricité et le
+          magnétisme en une seule théorie, ce qui prépare le terrain à
+          Maxwell.
+        </p>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">03</span>
+        <h3 class="concept-name">Pertes fer et cuivre</h3>
+      </div>
+      <div class="concept-formula">P_fer + P_cuivre</div>
+      <div class="concept-explanation">
+        <p>
+          Un transformateur réel dissipe de l'énergie de deux façons. Les
+          pertes fer, constantes, viennent de l'aimantation cyclique du
+          noyau. Les pertes cuivre, proportionnelles au carré du courant,
+          viennent de la résistance des enroulements.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          La distinction est établie par les ingénieurs de General Electric
+          dans les années 1890, quand ils cherchent à améliorer le
+          rendement des transformateurs pour le transport longue distance.
+        </p>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-head">
+        <span class="concept-num">04</span>
+        <h3 class="concept-name">Rendement</h3>
+      </div>
+      <div class="concept-formula">η = P₂ / (P₂ + P_fer + P_cuivre)</div>
+      <div class="concept-explanation">
+        <p>
+          Le rendement est le rapport entre la puissance utile et la
+          puissance absorbée. Un transformateur bien conçu atteint 95 à
+          98 pour cent. Le rendement est maximal quand les pertes fer
+          égalent les pertes cuivre.
+        </p>
+      </div>
+      <div class="concept-origin">
+        <span class="concept-origin-label">Origine</span>
+        <p class="concept-origin-text">
+          La notion de rendement s'impose avec les premiers réseaux
+          électriques. Elle devient centrale dans le choix des
+          transformateurs pour les lignes à haute tension, où quelques
+          pour cent de perte représentent des sommes considérables.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="shell">
+  <h2 class="display display-md section-heading">Travaux pratiques</h2>
+  <ol class="tp-index">
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">01</span>
+        <span class="tp-name display display-md">Essai à vide</span>
+        <span class="tp-time mono">40 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            On alimente le primaire sous sa tension nominale, sans rien
+            brancher au secondaire. Le courant est faible, la puissance
+            mesurée correspond aux pertes fer.
+          </p>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Déterminer le rapport de transformation m</li>
+            <li>Mesurer les pertes fer P₀</li>
+            <li>Vérifier que le courant à vide reste faible</li>
+          </ul>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            Le secondaire est ouvert, aucun courant n'y circule. La
+            puissance absorbée au primaire correspond uniquement aux pertes
+            dans le noyau magnétique.
+          </p>
+          <div class="tp-formula">m = U₂ / U₁</div>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Alimenter le primaire sous sa tension nominale</li>
+            <li>Laisser le secondaire ouvert</li>
+            <li>Mesurer U₁, U₂ et P₀</li>
+            <li>Calculer le rapport m</li>
+          </ol>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            Avec U₁ = 230 V et U₂ = 24 V, le rapport vaut 0,104. Les pertes
+            fer mesurent quelques watts, indépendamment de la charge
+            future.
+          </p>
+        </div>
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>Un transformateur 230 V / 24 V en essai à vide.</p>
+          <a href="simulateur.html?example=transfo-vide" class="btn btn-primary btn-load-example">Charger l'exemple</a>
+        </div>
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=transfo-1" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=transformateur+essai+a+vide+cours+francais" target="_blank" rel="noopener" class="btn btn-ghost">Voir une vidéo</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">02</span>
+        <span class="tp-name display display-md">Essai en court-circuit</span>
+        <span class="tp-time mono">40 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            On court-circuite le secondaire et on alimente le primaire sous
+            tension réduite. La puissance mesurée correspond aux pertes
+            cuivre.
+          </p>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Mesurer les pertes cuivre</li>
+            <li>Déterminer R_s et X_s du modèle équivalent</li>
+            <li>Compléter le modèle du transformateur</li>
+          </ul>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            Le secondaire est en court-circuit, sa tension est nulle. Le
+            courant au primaire reste au nominal. La puissance absorbée
+            correspond uniquement aux pertes par effet Joule dans les
+            enroulements.
+          </p>
+          <div class="tp-formula">R_s = P_cc / I_cc²</div>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Court-circuiter le secondaire</li>
+            <li>Alimenter le primaire sous tension réduite</li>
+            <li>Ajuster pour atteindre I_nominal</li>
+            <li>Mesurer U_cc et P_cc</li>
+            <li>Calculer R_s et X_s</li>
+          </ol>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            La tension de court-circuit représente 5 à 10 pour cent de la
+            tension nominale. Les pertes cuivre valent quelques pour cent
+            de la puissance nominale.
+          </p>
+        </div>
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>Un transformateur en essai de court-circuit.</p>
+          <a href="simulateur.html?example=transfo-cc" class="btn btn-primary btn-load-example">Charger l'exemple</a>
+        </div>
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=transfo-2" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=transformateur+essai+court+circuit+cours+francais" target="_blank" rel="noopener" class="btn btn-ghost">Voir une vidéo</a>
+        </div>
+      </div>
+    </li>
+
+    <li class="tp-entry">
+      <button class="tp-toggle" aria-expanded="false">
+        <span class="tp-num mono">03</span>
+        <span class="tp-name display display-md">Rendement</span>
+        <span class="tp-time mono">30 min</span>
+      </button>
+      <div class="tp-detail" hidden>
+        <div class="tp-section">
+          <span class="tp-section-label">Introduction</span>
+          <p>
+            Une fois les deux essais faits, on peut tracer le rendement en
+            fonction de la charge. La courbe passe par un maximum.
+          </p>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Objectifs</span>
+          <ul class="tp-list">
+            <li>Calculer le rendement pour différentes charges</li>
+            <li>Identifier le point de rendement maximal</li>
+            <li>Comprendre l'égalité des pertes à ce point</li>
+          </ul>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Théorie</span>
+          <p>
+            Les pertes fer sont constantes, les pertes cuivre varient avec
+            le carré du courant. Le rendement est maximal quand les deux
+            deviennent égales.
+          </p>
+          <div class="tp-formula">η_max quand P_fer = P_cuivre</div>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Procédure</span>
+          <ol class="tp-list numbered">
+            <li>Relever P₀ et P_cc des essais précédents</li>
+            <li>Faire varier la charge de 20 à 120 pour cent</li>
+            <li>Mesurer P₂ pour chaque charge</li>
+            <li>Calculer η pour chaque point</li>
+            <li>Tracer la courbe</li>
+          </ol>
+        </div>
+        <div class="tp-section">
+          <span class="tp-section-label">Résultats attendus</span>
+          <p>
+            Le rendement passe par un maximum autour de 80 pour cent de la
+            charge nominale. Il atteint alors 96 à 98 pour cent pour un
+            transformateur de distribution typique.
+          </p>
+        </div>
+        <div class="tp-example">
+          <div class="tp-example-title">Exemple prêt à lancer</div>
+          <p>Un transformateur chargé, avec ses pertes mesurées.</p>
+          <a href="simulateur.html?example=transfo-rendement" class="btn btn-primary btn-load-example">Charger l'exemple</a>
+        </div>
+        <div class="tp-resources">
+          <a href="fiche-tp.html?tp=transfo-3" target="_blank" class="btn btn-pdf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Fiche PDF
+          </a>
+          <a href="https://www.youtube.com/results?search_query=rendement+transformateur+cours+francais" target="_blank" rel="noopener" class="btn btn-ghost">Voir une vidéo</a>
+        </div>
+      </div>
+    </li>
+
+  </ol>
+</section>
+
+<footer class="site-foot">
+  <span>KODER · 2026</span>
+  <nav>
+    <a href="a-propos.html">À propos</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </nav>
+</footer>
+
+<script>
+document.querySelectorAll('.tp-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const d = btn.nextElementSibling;
+    const open = !d.hidden;
+    d.hidden = open;
+    btn.setAttribute('aria-expanded', String(!open));
+  });
+});
+</script>
+<script src="js/ui/Effects.js" defer></script>
+<script src="js/ui/theme.js"></script>
+<script src="js/ui/CookieBanner.js"></script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

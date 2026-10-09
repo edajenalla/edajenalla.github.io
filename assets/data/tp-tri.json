@@ -1,0 +1,48 @@
+{
+  "module": "tri",
+  "titre": "Systèmes triphasés",
+  "tp": [
+    {
+      "id": "tri-1", "numero": 1, "titre": "Découverte du triphasé", "duree": 30, "difficulte": "moyen",
+      "objectif": "Comprendre la structure d'un système triphasé équilibré.",
+      "prerequis": ["Circuits AC", "Trigonométrie"],
+      "materiel": ["Source triphasée", "3 résistances", "Oscilloscope 3 voies"],
+      "theorie": "3 tensions déphasées de 120°. U = √3 × V.",
+      "procedure": ["Placer la source triphasée", "Connecter 3 résistances en étoile", "Observer les 3 tensions"],
+      "questions": [
+        { "q": "Déphasage entre tensions ?", "reponse": "120°" },
+        { "q": "Relation U/V ?", "reponse": "U = √3 × V" },
+        { "q": "Somme des 3 tensions ?", "reponse": "Nulle" }
+      ],
+      "conclusion": "Le triphasé transporte l'énergie avec moins de pertes."
+    },
+    {
+      "id": "tri-2", "numero": 2, "titre": "Couplage étoile", "duree": 40, "difficulte": "moyen",
+      "objectif": "Étudier le couplage étoile (Y).",
+      "prerequis": ["Triphasé équilibré"],
+      "materiel": ["Source triphasée", "3 résistances", "Ampèremètre", "Voltmètre"],
+      "theorie": "En Y : I = J et U = √3 × V.",
+      "procedure": ["Connecter en étoile", "Mesurer I et V", "Vérifier les relations"],
+      "questions": [
+        { "q": "Relation I/J ?", "reponse": "I = J" },
+        { "q": "Relation U/V ?", "reponse": "U = √3 × V" },
+        { "q": "Rôle du neutre ?", "reponse": "Indispensable si déséquilibré" }
+      ],
+      "conclusion": "Le couplage Y est utilisé en distribution."
+    },
+    {
+      "id": "tri-3", "numero": 3, "titre": "Couplage triangle", "duree": 40, "difficulte": "difficile",
+      "objectif": "Étudier le couplage triangle (Δ).",
+      "prerequis": ["Couplage étoile"],
+      "materiel": ["Source triphasée", "3 résistances"],
+      "theorie": "En Δ : U = V et I = √3 × J.",
+      "procedure": ["Connecter en triangle", "Mesurer I et J", "Comparer avec Y"],
+      "questions": [
+        { "q": "Relation I/J ?", "reponse": "I = √3 × J" },
+        { "q": "Tension aux bornes ?", "reponse": "U = V" },
+        { "q": "Couplage plus puissant ?", "reponse": "Triangle" }
+      ],
+      "conclusion": "Le couplage Δ est utilisé pour les moteurs."
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>À propos · Laboratoire virtuel</title>
+<meta name="description" content="Contexte du projet, méthode, auteur, licence.">
+<link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+<link rel="stylesheet" href="css/theme.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/effect.css">
+<link rel="stylesheet" href="css/apropos.css">
+<link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/instrumentsans/v4/pximys0itdpkzchkngyrjw.woff2" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=Instrument+Sans:wght@400;500;600;700&family=Azeret+Mono:wght@400;500&display=swap">
+<script>
+(function(){
+  var t = localStorage.getItem('labo_virtuel_theme');
+  if (t) document.documentElement.dataset.theme = t;
+  else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+    document.documentElement.dataset.theme = 'light';
+  else
+    document.documentElement.dataset.theme = 'dark';
+})();
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <a href="index.html" class="logo">labo<em>/</em>virtuel</a>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="simulateur.html">Simulateur</a>
+    <a href="modules.html">Modules</a>
+    <a href="quiz.html">Quiz</a>
+    <a href="guide.html">Guide</a>
+  </nav>
+</header>
+
+<main class="shell apropos">
+
+  <section class="ap-hero">
+    <p class="eyebrow">À propos</p>
+    <h1 class="display display-xl">Un outil<br>pour l'ENSET</h1>
+    <p class="lead">
+      Ce laboratoire est né d'un constat simple : les étudiants  manquent de matériel pour
+      pratiquer. Le projet propose une réponse numérique, gratuite, qui
+      fonctionne sans connexion.
+    </p>
+  </section>
+
+  <section class="ap-section">
+    <h2 class="display display-md">Contexte</h2>
+    <p>
+      La formation en Sciences et Techniques Industrielles repose sur des
+      travaux pratiques. Quand les piles et les multimètres manquent, les
+      étudiants apprennent les formules sans jamais les voir fonctionner.
+      Les effectifs aggravent la situation : trente personnes autour de trois
+      équipements, cela laisse peu de place à la manipulation.
+    </p>
+    <p>
+      La stratégie nationale de digitalisation de l'enseignement technique
+      fixe un objectif de quarante mille techniciens formés d'ici 2028. Un
+      laboratoire virtuel s'inscrit dans cette trajectoire.
+    </p>
+  </section>
+
+  <section class="ap-section">
+    <h2 class="display display-md">Ce que fait l'outil</h2>
+    <dl class="ap-facts">
+      <div>
+        <dt>Construction</dt>
+        <dd>Poser des composants réalistes sur une plaque d'essai virtuelle, les relier, les déplacer.</dd>
+      </div>
+      <div>
+        <dt>Simulation</dt>
+        <dd>Résoudre le circuit par analyse nodale. Calculer courants, tensions, puissances.</dd>
+      </div>
+      <div>
+        <dt>Mesure</dt>
+        <dd>Multimètre, oscilloscope pour l'alternatif, diagramme de Fresnel, triangle des puissances.</dd>
+      </div>
+      <div>
+        <dt>Pédagogie</dt>
+        <dd>Fiches de TP, exercices guidés avec validation, quiz à correction expliquée.</dd>
+      </div>
+      <div>
+        <dt>Hors-ligne</dt>
+        <dd>Application installable. Fonctionne sans connexion après la première visite.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="ap-section">
+    <h2 class="display display-md">Technique</h2>
+    <p>
+      Le projet tient dans un navigateur. HTML, CSS et JavaScript, sans
+      framework. Le rendu des circuits passe par SVG et Canvas. La sauvegarde
+      utilise le stockage local du navigateur. Un service worker assure le
+      fonctionnement hors connexion.
+    </p>
+    <p>
+      Le solveur résout les circuits DC par analyse nodale avec élimination
+      de Gauss. Pour l'alternatif, les impédances sont traitées comme des
+      nombres complexes.
+    </p>
+  </section>
+
+  <section class="ap-section">
+    <h2 class="display display-md">Auteur</h2>
+    <dl class="ap-author">
+      <div><dt>Étudiant</dt><dd>[Ton nom]</dd></div>
+      <div><dt>Encadreur</dt><dd>[Nom de l'encadreur]</dd></div>
+      <div><dt>Établissement</dt><dd>ENSET d'Antsiranana, Université d'Antsiranana</dd></div>
+      <div><dt>Contact</dt><dd><a href="mailto:contact@example.org">contact@example.org</a></dd></div>
+    </dl>
+  </section>
+
+  <section class="ap-section">
+    <h2 class="display display-md">Licence</h2>
+    <p>
+      Le code source est publié sous licence MIT. Vous pouvez le réutiliser,
+      le modifier, le redistribuer. La seule condition est de conserver la
+      mention de copyright.
+    </p>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+ <span>KODER · 2026</span>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </nav>
+</footer>
+<script src="js/ui/Effects.js" defer></script>
+<script src="js/ui/theme.js" defer></script>
+<script src="js/ui/CookieBanner.js" defer></script>
+<script src="js/ui/PWA.js" defer></script>
+</body>
+</html>

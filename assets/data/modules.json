@@ -1,0 +1,48 @@
+{
+  "modules": [
+    {
+      "code": "dc",
+      "titre": "Circuits DC",
+      "description": "Maîtrisez les lois fondamentales des circuits en courant continu.",
+      "icone": "lightning",
+      "tp": 5,
+      "duree": "3-4h",
+      "niveau": "Débutant",
+      "statut": "available",
+      "url": "module-dc.html"
+    },
+    {
+      "code": "ac",
+      "titre": "Circuits AC",
+      "description": "Étudiez les circuits en courant alternatif : impédance, puissances.",
+      "icone": "source",
+      "tp": 4,
+      "duree": "3h",
+      "niveau": "Intermédiaire",
+      "statut": "available",
+      "url": "module-ac.html"
+    },
+    {
+      "code": "tri",
+      "titre": "Systèmes triphasés",
+      "description": "Systèmes triphasés équilibrés et déséquilibrés, couplages étoile et triangle.",
+      "icone": "triangle",
+      "tp": 3,
+      "duree": "2-3h",
+      "niveau": "Avancé",
+      "statut": "soon",
+      "url": "module-tri.html"
+    },
+    {
+      "code": "transfo",
+      "titre": "Transformateur",
+      "description": "Transformateur monophasé : essai à vide, court-circuit, rendement.",
+      "icone": "circle",
+      "tp": 2,
+      "duree": "2h",
+      "niveau": "Intermédiaire",
+      "statut": "soon",
+      "url": "module-transfo.html"
+    }
+  ]
+}
